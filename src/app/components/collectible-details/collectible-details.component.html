@@ -1,0 +1,94 @@
+<div *ngIf="viewMode; else editable">
+    <div *ngIf="currentCollectible.id">
+        <h4>Collectible</h4>
+        <div>
+            <label><strong>Name:</strong></label> {{ currentCollectible.name }}
+        </div>
+        <div>
+            <label><strong>Description:</strong></label>
+            {{ currentCollectible.description }}
+        </div>
+        <div>
+            <label><strong>Status:</strong></label>
+            {{ currentCollectible.published ? "Published" : "Pending" }}
+        </div>
+
+        <a
+                class="badge badge-warning"
+                routerLink="/collectibles/{{ currentCollectible.id }}"
+        >
+            Edit
+        </a>
+    </div>
+
+    <div *ngIf="!currentCollectible">
+        <br />
+        <p>Please click on a Collectible...</p>
+    </div>
+</div>
+
+<ng-template #editable>
+    <div *ngIf="currentCollectible.id" class="edit-form">
+        <h4>Collectible</h4>
+        <form>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        id="name"
+                        [(ngModel)]="currentCollectible.name"
+                        name="name"
+                />
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        id="description"
+                        [(ngModel)]="currentCollectible.description"
+                        name="description"
+                />
+            </div>
+
+            <div class="form-group">
+                <label><strong>Status:</strong></label>
+                {{ currentCollectible.published ? "Published" : "Pending" }}
+            </div>
+        </form>
+
+        <button
+                class="badge badge-primary mr-2"
+                *ngIf="currentCollectible.published"
+                (click)="updatePublished(false)"
+        >
+            UnPublish
+        </button>
+        <button
+                *ngIf="!currentCollectible.published"
+                class="badge badge-primary mr-2"
+                (click)="updatePublished(true)"
+        >
+            Publish
+        </button>
+
+        <button class="badge badge-danger mr-2" (click)="deleteCollectible()">
+            Delete
+        </button>
+
+        <button
+                type="submit"
+                class="badge badge-success mb-2"
+                (click)="updateCollectible()"
+        >
+            Update
+        </button>
+        <p>{{ message }}</p>
+    </div>
+
+    <div *ngIf="!currentCollectible.id">
+        <br />
+        <p>Cannot access this Collectible...</p>
+    </div>
+</ng-template>
