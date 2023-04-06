@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Collectible} from "../../models/collectible.model";
-import {CollectibleService} from "../../services/collectible.service";
+import {Collectible} from "../../../models/collectible.model";
+import {CollectibleService} from "../../../services/collectible.service";
 
 @Component({
   selector: 'app-add-collectible',
@@ -11,8 +11,7 @@ export class AddCollectibleComponent implements OnInit {
 
   collectible: Collectible = {
     name: '',
-    description: '',
-    published: false
+    subcategory: undefined
   };
   submitted = false;
 
@@ -24,7 +23,7 @@ export class AddCollectibleComponent implements OnInit {
   saveCollectible(): void {
     const data = {
       name: this.collectible.name,
-      description: this.collectible.description
+      subcategory: this.collectible.subcategory
     };
 
     this.collectibleService.create(data)
@@ -41,8 +40,7 @@ export class AddCollectibleComponent implements OnInit {
     this.submitted = false;
     this.collectible = {
       name: '',
-      description: '',
-      published: false
+      subcategory: undefined
     };
   }
 }

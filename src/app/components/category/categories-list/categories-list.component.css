@@ -1,0 +1,19 @@
+#categories-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5em;
+}
+
+.list-header {
+    margin: 0;
+}
+
+.header-button {
+    margin-left: auto;
+}
+
+.list {
+    text-align: left;
+    max-width: 750px;
+    margin: auto;
+}

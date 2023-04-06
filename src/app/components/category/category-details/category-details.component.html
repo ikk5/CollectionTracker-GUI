@@ -1,0 +1,63 @@
+<div *ngIf="viewMode; else editable">
+    <div *ngIf="currentCategory.id">
+        <h4>Category</h4>
+        <div>
+            <label><strong>Name:</strong></label> {{ currentCategory.name }}
+        </div>
+        <div>
+            <label><strong>Subcategories:</strong></label>
+            <ul>
+                <li *ngFor="let subcat of currentCategory.subcategories">{{subcat.subcategory}}</li>
+            </ul>
+        </div>
+
+        <button class="badge badge-danger mr-2" (click)="deleteCategory()">
+            Delete
+        </button>
+        <a class="badge badge-warning" routerLink="/categories/{{ currentCategory.id }}">
+            Edit
+        </a>
+    </div>
+</div>
+
+<ng-template #editable>
+    <div *ngIf="currentCategory.id" class="edit-form">
+        <h4>Category</h4>
+        <form>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" [(ngModel)]="currentCategory.name" name="name"/>
+            </div>
+
+            <table class="table table-borderless" formArrayName="subcategories">
+                <tr>
+                    <th>Subcategories</th>
+                    <th>
+                        <button (click)="addNewSubcategory()" class="badge badge-info">Add subcategory</button>
+                    </th>
+                </tr>
+                <tr *ngFor="let subcategory of currentCategory.subcategories; let i = index">
+                    <td><input type="text" class="form-control" name="{{'subcategories'+i}}" id="{{'subcategories'+i}}"
+                               [(ngModel)]="subcategory.subcategory"/></td>
+                    <td>
+                        <button class="badge badge-danger" (click)="removeSubcategory(i)">Delete</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <button class="badge badge-danger mr-2" (click)="deleteCategory()">
+            Delete
+        </button>
+
+        <button type="submit" class="badge badge-success mb-2" (click)="updateCategory()">
+            Update
+        </button>
+        <p>{{ message }}</p>
+    </div>
+
+    <div *ngIf="!currentCategory.id">
+        <br/>
+        <p>Cannot access this category...</p>
+    </div>
+</ng-template>

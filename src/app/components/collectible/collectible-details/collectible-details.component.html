@@ -1,0 +1,63 @@
+<div *ngIf="viewMode; else editable">
+    <div *ngIf="currentCollectible.id">
+        <h4>Collectible</h4>
+        <div>
+            <label><strong>Name:</strong></label> {{ currentCollectible.name }}
+        </div>
+        <div>
+            <label><strong>Category:</strong></label>
+            {{ currentCollectible.subcategory == undefined ? '' : currentCollectible.subcategory.subcategory }}
+        </div>
+
+        <a class="badge badge-warning" routerLink="/collectibles/{{ currentCollectible.id }}">
+            Edit
+        </a>
+    </div>
+
+    <div *ngIf="!currentCollectible">
+        <br/>
+        <p>Please click on a Collectible...</p>
+    </div>
+</div>
+
+<ng-template #editable>
+    <div *ngIf="currentCollectible.id" class="edit-form">
+        <h4>Collectible</h4>
+        <form>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" [(ngModel)]="currentCollectible.name" name="name"/>
+            </div>
+            <!--            <div class="form-group">-->
+            <!--                <label for="category">Category</label>-->
+            <!--                <select [(ngModel)]="selectedCategory" class="form-control" id="category" name="category">-->
+            <!--                    <option *ngFor="let cat of categories" value="{{selectedCategory}}">{{cat.name}}</option>-->
+            <!--                </select>-->
+            <!--            </div>-->
+            <div class="form-group">
+                <label for="subcategory">Subcategory</label>
+                <select [(ngModel)]="currentCollectible.subcategory" class="form-control" id="subcategory" name="subcategory">
+                    <option *ngFor="let subcat of (selectedCategory? selectedCategory.subcategories : [])">{{subcat.subcategory}}</option>
+                </select>
+            </div>
+
+        </form>
+
+        <p>selected Subcategory: {{currentCollectible.subcategory?.subcategory}}</p>
+        <p>value of selectableSubcategories: {{selectedCategory?.subcategories?.length}}</p>
+
+        <button class="badge badge-danger mr-2" (click)="deleteCollectible()">
+            Delete
+        </button>
+
+        <button type="submit" class="badge badge-success mb-2" (click)="updateCollectible()">
+            Save
+        </button>
+        <p>{{ message }}</p>
+    </div>
+
+    <div *ngIf="!currentCollectible.id">
+        <br/>
+        <p>Cannot access this Collectible...</p>
+    </div>
+</ng-template>

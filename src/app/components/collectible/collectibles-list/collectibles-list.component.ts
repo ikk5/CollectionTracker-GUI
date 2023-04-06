@@ -1,26 +1,27 @@
 import {Component, OnInit} from '@angular/core';
-import {Collectible} from "../../models/collectible.model";
-import {CollectibleService} from "../../services/collectible.service";
+import {Collectible} from "../../../models/collectible.model";
+import {CollectibleService} from "../../../services/collectible.service";
 
 @Component({
-  selector: 'app-collectibles-list',
-  templateUrl: './collectibles-list.component.html',
-  styleUrls: ['./collectibles-list.component.css']
+    selector: 'app-collectibles-list',
+    templateUrl: './collectibles-list.component.html',
+    styleUrls: ['./collectibles-list.component.css']
 })
-export class CollectiblesListComponent  implements OnInit {
+export class CollectiblesListComponent implements OnInit {
 
-  collectibles?: Collectible[];
-  currentCollectible: Collectible = {};
-  currentIndex = -1;
-  title = '';
+    collectibles?: Collectible[];
+    currentCollectible: Collectible = {};
+    currentIndex = -1;
+    title = '';
 
-  constructor(private collectibleService: CollectibleService) { }
+    constructor(private collectibleService: CollectibleService) {
+    }
 
-  ngOnInit(): void {
-    this.retrieveCollectibles();
-  }
+    ngOnInit(): void {
+        this.retrieveCollectibles();
+    }
 
-  retrieveCollectibles(): void {
+    retrieveCollectibles(): void {
     this.collectibleService.getAll()
         .subscribe({
           next: (data) => {

@@ -1,0 +1,46 @@
+<div>
+    <div class="submit-form">
+        <div *ngIf="!submitted">
+            <form>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" [(ngModel)]="category.name" name="name"/>
+                </div>
+
+                <table class="table table-borderless" formArrayName="subcategories">
+                    <tr>
+                        <th>Subcategories</th>
+                        <th>
+                            <button (click)="addNewSubcategory()" class="badge badge-info">Add subcategory</button>
+                        </th>
+                    </tr>
+                    <tr *ngFor="let subcategory of category.subcategories; let i = index">
+                        <td><input type="text" class="form-control" name="{{'subcategories'+i}}" id="{{'subcategories'+i}}"
+                                   [(ngModel)]="subcategory.subcategory"/></td>
+                        <td>
+                            <button class="badge badge-danger" (click)="removeSubcategory(i)">Delete</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+
+
+            <!--            <div class="form-group">-->
+            <!--                <label for="name">Category</label>-->
+            <!--                <input type="text" class="form-control" id="name" required [(ngModel)]="category.name" name="name"/>-->
+            <!--            </div>-->
+
+            <!--            <div class="form-group">-->
+            <!--                <label for="subcategories">Subcategories</label>-->
+            <!--                <input class="form-control" id="subcategories" required [(ngModel)]="category.subcategories" name="subcategories"/>-->
+            <!--            </div>-->
+
+            <button (click)="saveCategory()" class="btn btn-success">Save</button>
+        </div>
+
+        <div *ngIf="submitted">
+            <h4>Category was added successfully!</h4>
+            <button class="btn btn-success" (click)="newCategory()">Add</button>
+        </div>
+    </div>
+</div>

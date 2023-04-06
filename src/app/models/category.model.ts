@@ -1,7 +1,7 @@
 import {Subcategory} from "./subcategory.model";
 
-export class Collectible {
+export class Category {
     id?: any;
     name?: string;
-    subcategory?: Subcategory;
+    subcategories?: Subcategory[] = [];
 }
