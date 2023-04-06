@@ -11,8 +11,8 @@ import {CategoriesListComponent} from "./components/category/categories-list/cat
 import {AddCategoryComponent} from "./components/category/add-category/add-category.component";
 import {CategoryDetailsComponent} from "./components/category/category-details/category-details.component";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {PickCategoryComponent} from "./components/collectible/add-collectible/pick-category.component";
-import {UpdateCollectibleComponent} from "./components/collectible/add-collectible/update-collectible.component";
+import {PickCategoryComponent} from "./components/collectible/crud-collectible/pick-category.component";
+import {UpdateCollectibleComponent} from "./components/collectible/crud-collectible/update-collectible.component";
 
 @NgModule({
   declarations: [

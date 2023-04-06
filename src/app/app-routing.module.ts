@@ -5,8 +5,8 @@ import {CollectibleDetailsComponent} from './components/collectible/collectible-
 import {CategoriesListComponent} from "./components/category/categories-list/categories-list.component";
 import {AddCategoryComponent} from "./components/category/add-category/add-category.component";
 import {CategoryDetailsComponent} from "./components/category/category-details/category-details.component";
-import {PickCategoryComponent} from "./components/collectible/add-collectible/pick-category.component";
-import {UpdateCollectibleComponent} from "./components/collectible/add-collectible/update-collectible.component";
+import {PickCategoryComponent} from "./components/collectible/crud-collectible/pick-category.component";
+import {UpdateCollectibleComponent} from "./components/collectible/crud-collectible/update-collectible.component";
 
 const routes: Routes = [
     {path: '', redirectTo: 'collectibles', pathMatch: 'full'},
