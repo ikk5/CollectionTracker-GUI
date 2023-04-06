@@ -4,11 +4,11 @@ import {CategoryService} from "../../../services/category.service";
 import {Subcategory} from "../../../models/subcategory.model";
 
 @Component({
-    selector: 'app-add-category',
-    templateUrl: './add-category.component.html',
-    styleUrls: ['./add-category.component.css']
+    selector: 'app-update-category',
+    templateUrl: './update-category.component.html',
+    styleUrls: ['./update-category.component.css']
 })
-export class AddCategoryComponent implements OnInit {
+export class UpdateCategoryComponent implements OnInit {
 
     category: Category = {
         name: '',
