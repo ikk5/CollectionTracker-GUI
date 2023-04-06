@@ -1,0 +1,33 @@
+<div class="submit-form">
+
+    <div *ngIf="submitted">
+        <h4>{{message}}</h4>
+        <button class="btn btn-success" (click)="newCollectible()">Add another</button>
+        <br/>
+    </div>
+
+    <div *ngIf="currentCollectible.id">
+        <p>Update collectible</p>
+    </div>
+    <div *ngIf="!currentCollectible.id">
+        <h4>Add collectible</h4>
+    </div>
+
+    <p>selected category: {{currentCategory ? currentCategory.name : "geen categorie"}}</p>
+    <p>selected subcategory: {{currentCollectible.subcategory?.subcategory}}</p>
+
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" [(ngModel)]="currentCollectible.name" name="name"/>
+    </div>
+
+    <div class="form-group">
+        <label for="subcategory">Type</label>
+        <select [(ngModel)]="currentCollectible.subcategory" class="form-control" id="subcategory" name="subcategory">
+            <option *ngFor="let subcat of currentCategory?.subcategories" [ngValue]="subcat">{{subcat.subcategory}}</option>
+        </select>
+    </div>
+
+
+    <button (click)="saveCollectible()" class="btn btn-success">Submit</button>
+</div>

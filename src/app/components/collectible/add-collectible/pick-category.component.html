@@ -1,0 +1,11 @@
+<div>
+    <div class="submit-form">
+        <h4>What are we adding?</h4>
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let cat of categories"
+                (click)="chooseCategory(cat)">
+                {{ cat.name }}
+            </li>
+        </ul>
+    </div>
+</div>

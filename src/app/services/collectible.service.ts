@@ -20,11 +20,11 @@ export class CollectibleService {
     return this.http.get(`${baseUrl}/${id}`);
   }
 
-  create(data: any): Observable<any> {
+  create(data: Collectible): Observable<any> {
     return this.http.post(baseUrl, data);
   }
 
-  update(id: any, data: any): Observable<any> {
+  update(id: any, data: Collectible): Observable<any> {
     return this.http.put(`${baseUrl}/${id}`, data);
   }
 
@@ -36,7 +36,7 @@ export class CollectibleService {
     return this.http.delete(baseUrl);
   }
 
-  findByName(name: any): Observable<Collectible[]> {
+  findByName(name: string): Observable<Collectible[]> {
     return this.http.get<Collectible[]>(`${baseUrl}?name=${name}`);
   }
 }
