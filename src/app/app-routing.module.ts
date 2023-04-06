@@ -14,7 +14,7 @@ const routes: Routes = [
     {path: 'collectibles/:id', component: CollectibleDetailsComponent},
     {path: 'categories', component: CategoriesListComponent},
     {path: 'categories/:id', component: CategoryDetailsComponent},
-    {path: 'addCategory', component: UpdateCategoryComponent},
+    {path: 'updateCategory', component: UpdateCategoryComponent},
     {path: 'pickCategory', component: PickCategoryComponent},
     {path: 'updateCollectible', component: UpdateCollectibleComponent}
 ];

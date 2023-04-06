@@ -1,56 +1,71 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Category} from "../../../models/category.model";
 import {CategoryService} from "../../../services/category.service";
 import {Subcategory} from "../../../models/subcategory.model";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
     selector: 'app-update-category',
     templateUrl: './update-category.component.html',
     styleUrls: ['./update-category.component.css']
 })
-export class UpdateCategoryComponent implements OnInit {
+export class UpdateCategoryComponent {
 
-    category: Category = {
-        name: '',
-        subcategories: [new Subcategory()]
-    };
-    submitted = false;
+    currentCategory: Category;
 
-    constructor(private categoryService: CategoryService) {
-    }
-
-    ngOnInit(): void {
+    constructor(private categoryService: CategoryService,
+                private route: ActivatedRoute,
+                private router: Router) {
+        this.currentCategory = history.state.category;
+        if (!this.currentCategory?.id) {
+            this.newCategory();
+        }
     }
 
     saveCategory(): void {
-        const data = {
-            name: this.category.name,
-            subcategories: this.category.subcategories
-        };
+        if (this.currentCategory.id) {
+            this.updateCategory();
+        } else {
+            this.saveNewCategory();
+        }
+    }
 
-        this.categoryService.create(data)
+    saveNewCategory(): void {
+        this.categoryService.create(this.currentCategory)
             .subscribe({
                 next: (res) => {
                     console.log(res);
-                    this.submitted = true;
+                    this.router.navigate(['/categories']);
+                },
+                error: (e) => console.error(e)
+            });
+    }
+
+    updateCategory(): void {
+        // this.message = '';
+
+        this.categoryService.update(this.currentCategory.id, this.currentCategory)
+            .subscribe({
+                next: (res) => {
+                    console.log(res);
+                    this.router.navigate(['/categories']);
                 },
                 error: (e) => console.error(e)
             });
     }
 
     newCategory(): void {
-        this.submitted = false;
-        this.category = {
+        this.currentCategory = {
             name: '',
             subcategories: [new Subcategory()]
         };
     }
 
     addNewSubcategory() {
-        this.category.subcategories?.push(new Subcategory());
+        this.currentCategory.subcategories?.push(new Subcategory());
     }
 
     removeSubcategory(index: number) {
-        this.category.subcategories?.splice(index, 1);
+        this.currentCategory.subcategories?.splice(index, 1);
     }
 }
