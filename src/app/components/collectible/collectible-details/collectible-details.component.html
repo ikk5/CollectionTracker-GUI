@@ -8,6 +8,9 @@
             <label><strong>Category:</strong></label>
             {{ currentCollectible.subcategory == undefined ? '' : currentCollectible.subcategory.subcategory }}
         </div>
+        <div>
+            <label><strong>Date added:</strong></label> {{ currentCollectible.addedDate}}
+        </div>
 
         <a class="badge badge-warning" (click)="updateCollectible()" routerLink="/collectibles/{{ currentCollectible.id }}">
             Edit
