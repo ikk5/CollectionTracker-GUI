@@ -11,6 +11,12 @@
         <div>
             <label><strong>Date added:</strong></label> {{ currentCollectible.addedDate}}
         </div>
+        <div>
+            <label><strong>Images:</strong></label>
+            <ul>
+                <li *ngFor="let img of currentCollectible.images">{{img.url}}</li>
+            </ul>
+        </div>
 
         <a class="badge badge-warning" (click)="updateCollectible()">
             Edit

@@ -16,7 +16,8 @@ export class CollectibleDetailsComponent implements OnInit {
 
     @Input() currentCollectible: Collectible = {
         name: '',
-        subcategory: undefined
+        subcategory: undefined,
+        images: []
     };
 
     message = '';

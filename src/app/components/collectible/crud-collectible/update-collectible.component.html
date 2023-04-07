@@ -28,6 +28,21 @@
         </select>
     </div>
 
+    <table class="table table-borderless" formArrayName="images">
+        <tr>
+            <th>Images</th>
+            <th>
+                <button (click)="addNewImage()" class="badge badge-info">Add image url</button>
+            </th>
+        </tr>
+        <tr *ngFor="let imageLink of currentCollectible.images; let i = index">
+            <td><input type="text" class="form-control" name="{{'image'+i}}" id="{{'image'+i}}"
+                       [(ngModel)]="imageLink.url"/></td>
+            <td>
+                <button class="badge badge-danger" (click)="removeImage(i)">Delete</button>
+            </td>
+        </tr>
+    </table>
 
     <button (click)="saveCollectible()" class="btn btn-success">Submit</button>
 </div>

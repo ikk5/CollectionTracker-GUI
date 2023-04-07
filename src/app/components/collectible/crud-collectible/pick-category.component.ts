@@ -11,10 +11,7 @@ import {Router} from "@angular/router";
 })
 export class PickCategoryComponent implements OnInit {
 
-    collectible: Collectible = {
-        name: '',
-        subcategory: undefined
-    };
+    collectible: Collectible = new Collectible();
 
     categories: Category[] = [];
     selectedCategory?: Category;
@@ -36,13 +33,6 @@ export class PickCategoryComponent implements OnInit {
                 },
                 error: (e) => console.error(e)
             });
-    }
-
-    newCollectible(): void {
-        this.collectible = {
-            name: '',
-            subcategory: undefined
-        };
     }
 
     chooseCategory(cat: Category): void {

@@ -42,8 +42,6 @@ export class UpdateCategoryComponent {
     }
 
     updateCategory(): void {
-        // this.message = '';
-
         this.categoryService.update(this.currentCategory.id, this.currentCategory)
             .subscribe({
                 next: (res) => {

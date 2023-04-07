@@ -4,6 +4,7 @@ import {CollectibleService} from "../../../services/collectible.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Category} from "../../../models/category.model";
 import {CategoryService} from "../../../services/category.service";
+import {ImageLink} from "../../../models/image.model";
 
 @Component({
     selector: 'app-update-collectible',
@@ -88,6 +89,19 @@ export class UpdateCollectibleComponent implements OnInit {
     }
 
     newCollectible() {
-        this.currentCollectible = new Collectible();
+        this.currentCollectible = {
+            name: '',
+            images: [new ImageLink()]
+        };
+        this.submitted = false;
+        this.message = '';
+    }
+
+    addNewImage() {
+        this.currentCollectible.images?.push(new ImageLink());
+    }
+
+    removeImage(index: number) {
+        this.currentCollectible.images?.splice(index, 1);
     }
 }
