@@ -9,6 +9,12 @@
             <li *ngFor="let subcat of currentCategory.subcategories">{{subcat.subcategory}}</li>
         </ul>
     </div>
+    <div>
+        <label><strong>Questions:</strong></label>
+        <ul>
+            <li *ngFor="let question of currentCategory.questions">{{question.question}} - {{question.datatype}} - {{question.defaultValue}}</li>
+        </ul>
+    </div>
 
     <button class="badge badge-danger mr-2" (click)="deleteCategory()">
         Delete

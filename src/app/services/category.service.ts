@@ -3,7 +3,8 @@ import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {Category} from "../models/category.model";
 
-const baseUrl = 'http://localhost:8080/api/categories'
+const baseUrl = 'http://localhost:8080/api/'
+const categoriesUrl = baseUrl + 'categories'
 
 @Injectable({
     providedIn: 'root'
@@ -14,30 +15,34 @@ export class CategoryService {
     }
 
     getAll(): Observable<Category[]> {
-        return this.http.get<Category[]>(baseUrl);
+        return this.http.get<Category[]>(categoriesUrl);
     }
 
     get(id: any): Observable<Category> {
-        return this.http.get(`${baseUrl}/${id}`);
+        return this.http.get(`${categoriesUrl}/${id}`);
     }
 
     create(data: any): Observable<any> {
-        return this.http.post(baseUrl, data);
+        return this.http.post(categoriesUrl, data);
     }
 
     update(id: any, data: any): Observable<any> {
-        return this.http.put(`${baseUrl}/${id}`, data);
+        return this.http.put(`${categoriesUrl}/${id}`, data);
     }
 
     delete(id: any): Observable<any> {
-        return this.http.delete(`${baseUrl}/${id}`);
+        return this.http.delete(`${categoriesUrl}/${id}`);
     }
 
     deleteAll(): Observable<any> {
-        return this.http.delete(baseUrl);
+        return this.http.delete(categoriesUrl);
     }
 
     findByName(name: any): Observable<Category[]> {
-        return this.http.get<Category[]>(`${baseUrl}?name=${name}`);
+        return this.http.get<Category[]>(`${categoriesUrl}?name=${name}`);
+    }
+
+    getAllDatatypes(): Observable<string[]> {
+        return this.http.get<string[]>(baseUrl + 'datatypes');
     }
 }

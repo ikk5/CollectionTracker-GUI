@@ -2,7 +2,7 @@
     <div class="submit-form">
             <form>
                 <div class="form-group">
-                    <label for="name">Name</label>
+                    <label for="name"><strong>Name</strong></label>
                     <input type="text" class="form-control" id="name" [(ngModel)]="currentCategory.name" name="name"/>
                 </div>
 
@@ -21,6 +21,34 @@
                         </td>
                     </tr>
                 </table>
+
+                <table class="table table-borderless" formArrayName="questions">
+                    <tr>
+                        <th>Questions</th>
+                        <th>
+                            <button (click)="addNewQuestion()" class="badge badge-info">Add question</button>
+                        </th>
+                    </tr>
+                    <tr *ngFor="let question of currentCategory.questions; let i = index">
+                        <td>
+                            <input type="text" class="form-control" name="{{'question'+i}}" id="{{'question'+i}}"
+                                   [(ngModel)]="question.question"/>
+                        </td>
+                        <td>
+                            <select [(ngModel)]="question.datatype" class="form-control" id="{{'datatype'+i}}" name="{{'datatype'+i}}">
+                                <option *ngFor="let datatype of datatypes" [ngValue]="datatype">{{datatype}}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="{{'defaultValue'+i}}" id="{{'defaultValue'+i}}"
+                                   [(ngModel)]="question.defaultValue"/>
+                        </td>
+                        <td>
+                            <button class="badge badge-danger" (click)="removeQuestion(i)">Delete</button>
+                        </td>
+                    </tr>
+                </table>
+
             </form>
 
             <button (click)="saveCategory()" class="btn btn-success">Save</button>

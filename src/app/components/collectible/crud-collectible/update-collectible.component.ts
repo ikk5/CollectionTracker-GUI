@@ -43,7 +43,7 @@ export class UpdateCollectibleComponent implements OnInit {
                     this.currentCategory = data;
                     for (let subcat of data.subcategories ? data.subcategories : []) {
                         if (subcat.subcategory == this.currentCollectible.subcategory?.subcategory) {
-                            // Dit forceert een update van de dropdown wordt bijgewerkt.
+                            // Dit forceert een update zodat de dropdown wordt bijgewerkt.
                             // TODO: dit moet toch netter kunnen...
                             this.currentCollectible.subcategory = subcat;
                         }
