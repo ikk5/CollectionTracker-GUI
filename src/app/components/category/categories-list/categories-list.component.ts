@@ -54,18 +54,4 @@ export class CategoriesListComponent implements OnInit {
             });
     }
 
-    searchName(): void {
-        this.currentCategory = {};
-        this.currentIndex = -1;
-
-        this.categoryService.findByName(this.title)
-            .subscribe({
-                next: (data) => {
-                    this.categories = data;
-                    console.log(data);
-                },
-                error: (e) => console.error(e)
-            });
-    }
-
 }

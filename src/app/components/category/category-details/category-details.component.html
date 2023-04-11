@@ -12,7 +12,12 @@
     <div>
         <label><strong>Questions:</strong></label>
         <ul>
-            <li *ngFor="let question of currentCategory.questions">{{question.question}} - {{question.datatype}} - {{question.defaultValue}}</li>
+            <li *ngFor="let question of currentCategory.questions">
+                Question: {{question.question}}<br/>
+                Datatype: {{question.datatype}}<br/>
+                Default: {{question.defaultValue}}<br/>
+                Hidden: {{question.hidden}}<br/>
+                ListColumn: {{question.listColumn}}</li>
         </ul>
     </div>
 

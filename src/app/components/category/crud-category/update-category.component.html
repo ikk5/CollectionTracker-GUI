@@ -29,6 +29,13 @@
                             <button (click)="addNewQuestion()" class="badge badge-info">Add question</button>
                         </th>
                     </tr>
+                    <tr>
+                        <td>Question</td>
+                        <td>Datatype</td>
+                        <td>Default value</td>
+                        <td>Show on list</td>
+                        <td>Hidden</td>
+                    </tr>
                     <tr *ngFor="let question of currentCategory.questions; let i = index">
                         <td>
                             <input type="text" class="form-control" name="{{'question'+i}}" id="{{'question'+i}}"
@@ -42,6 +49,14 @@
                         <td>
                             <input type="text" class="form-control" name="{{'defaultValue'+i}}" id="{{'defaultValue'+i}}"
                                    [(ngModel)]="question.defaultValue"/>
+                        </td>
+                        <td>
+                            <input type="checkbox" class="form-control" name="{{'listColumn'+i}}" id="{{'listColumn'+i}}"
+                                   [(ngModel)]="question.listColumn"/>
+                        </td>
+                        <td>
+                            <input type="checkbox" class="form-control" name="{{'hidden'+i}}" id="{{'hidden'+i}}"
+                                   [(ngModel)]="question.hidden"/>
                         </td>
                         <td>
                             <button class="badge badge-danger" (click)="removeQuestion(i)">Delete</button>

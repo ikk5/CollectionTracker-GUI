@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Category} from "../../../models/category.model";
 import {CategoryService} from "../../../services/category.service";
 import {ImageLink} from "../../../models/image.model";
+import {Triple} from "../../../models/triple.model";
 
 @Component({
     selector: 'app-update-collectible',
@@ -33,6 +34,8 @@ export class UpdateCollectibleComponent implements OnInit {
     ngOnInit(): void {
         if (!this.currentCategory && this.currentCollectible.id) {
             this.getCategory();
+        } else {
+            this.addQuestions();
         }
     }
 
@@ -47,11 +50,27 @@ export class UpdateCollectibleComponent implements OnInit {
                             // TODO: dit moet toch netter kunnen...
                             this.currentCollectible.subcategory = subcat;
                         }
+                        this.addQuestions();
                     }
                     console.log(data);
                 },
                 error: (e) => console.error(e)
             });
+    }
+
+    addQuestions() {
+        for (let question of (this.currentCategory?.questions ? this.currentCategory.questions : [])) {
+            let found: boolean = false;
+            for (let triple of (this.currentCollectible?.triples ? this.currentCollectible.triples : [])) {
+                if (triple.question?.id == question.id) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                this.currentCollectible.triples?.push(new Triple(question));
+            }
+        }
     }
 
     saveCollectible(): void {
@@ -91,8 +110,10 @@ export class UpdateCollectibleComponent implements OnInit {
     newCollectible() {
         this.currentCollectible = {
             name: '',
-            images: [new ImageLink()]
+            images: [new ImageLink()],
+            triples: []
         };
+        this.addQuestions();
         this.submitted = false;
         this.message = '';
     }

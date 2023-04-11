@@ -1,5 +1,6 @@
 import {Subcategory} from "./subcategory.model";
 import {ImageLink} from "./image.model";
+import {Triple} from "./triple.model";
 
 export class Collectible {
     id?: any;
@@ -7,9 +8,11 @@ export class Collectible {
     subcategory?: Subcategory;
     addedDate?: string;
     images?: ImageLink[];
+    triples?: Triple[];
 
     constructor() {
         this.name = '';
         this.images = [new ImageLink()];
+        this.triples = [];
     }
 }
