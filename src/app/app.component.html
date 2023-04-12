@@ -1,16 +1,60 @@
 <div>
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a href="#" class="navbar-brand">CollectionTracker</a>
-    <div class="navbar-nav mr-auto">
-      <a routerLink="collectibles" class="nav-link">Collectibles</a>
-      <a routerLink="pickCategory" class="nav-link">Add collectible</a>
-      <a routerLink="categories" class="nav-link">Categories</a>
-    </div>
-  </nav>
+    <mat-toolbar class="navbar navbar-expand navbar-dark">
+        <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+            <mat-icon *ngIf="!sidenav.opened"> menu</mat-icon>
+            <mat-icon *ngIf="sidenav.opened"> close</mat-icon>
+        </button>
+        <a href="#" class="navbar-brand">CollectionTracker</a>
+        <!--    <div class="navbar-nav mr-auto">-->
+        <!--      <a routerLink="collectibles" class="nav-link">Collectibles</a>-->
+        <!--      <a routerLink="pickCategory" class="nav-link">Add collectible</a>-->
+        <!--      <a routerLink="categories" class="nav-link">Categories</a>-->
+        <!--    </div>-->
+    </mat-toolbar>
 
-  <!-- TODO: add sidebar (accordion?) with selectable categories -->
+    <mat-sidenav-container hasBackdrop="false">
+        <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+            <button mat-button class="menu-button" routerLink="">
+                <mat-icon>home</mat-icon>
+                <span>Home</span>
+            </button>
+            <!--      <button mat-button class="menu-button" routerLink="/profile">-->
+            <!--        <mat-icon>person</mat-icon>-->
+            <!--        <span>Profile</span>-->
+            <!--      </button>-->
 
-  <div class="container mt-3">
-    <router-outlet/>
-  </div>
+            <mat-divider/>
+
+            <button mat-button class="menu-button" routerLink="/pickCategory">
+                <mat-icon>add_to_photos</mat-icon>
+                <span>Add collectible</span>
+            </button>
+
+            <button mat-button class="menu-button" routerLink="/categories">
+                <mat-icon>folder</mat-icon>
+                <span>Manage categories</span>
+            </button>
+
+            <mat-divider/>
+
+            <div *ngFor="let category of categories">
+                <button mat-button class="menu-button" routerLink="/categories">
+                    <span>{{category.name}}</span>
+                </button>
+                <ul style="list-style-type: none">
+                    <li *ngFor="let subcat of category.subcategories">
+                        <button mat-button class="menu-button" routerLink="/categories">
+                            <span>{{subcat.subcategory}}</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <div class="content">
+                <router-outlet></router-outlet>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
 </div>

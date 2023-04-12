@@ -13,6 +13,11 @@ import {CategoryDetailsComponent} from "./components/category/category-details/c
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {PickCategoryComponent} from "./components/collectible/crud-collectible/pick-category.component";
 import {UpdateCollectibleComponent} from "./components/collectible/crud-collectible/update-collectible.component";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatDividerModule} from "@angular/material/divider";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 @NgModule({
   declarations: [
@@ -30,6 +35,11 @@ import {UpdateCollectibleComponent} from "./components/collectible/crud-collecti
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDividerModule,
     BrowserAnimationsModule
   ],
   providers: [CategoriesListComponent],
