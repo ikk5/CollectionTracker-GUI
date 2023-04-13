@@ -1,9 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Collectible} from "../../../models/collectible.model";
 import {CollectibleService} from "../../../services/collectible.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CategoryService} from "../../../services/category.service";
-import {CollectiblesListComponent} from "../collectibles-list/collectibles-list.component";
 
 @Component({
     selector: 'app-collectible-details',
@@ -12,29 +11,30 @@ import {CollectiblesListComponent} from "../collectibles-list/collectibles-list.
 })
 export class CollectibleDetailsComponent implements OnInit {
 
-    @Input() viewMode = false;
-
-    @Input() currentCollectible: Collectible = {
+    currentCollectible: Collectible = {
         name: '',
         subcategory: undefined,
         images: [],
         triples: []
     };
 
+    collectibleId?: number;
     message = '';
 
     constructor(
         private collectibleService: CollectibleService,
         private categoryService: CategoryService,
-        private collectiblesListComponent: CollectiblesListComponent,
         private route: ActivatedRoute,
         private router: Router) {
+        this.collectibleId = history.state.collectibleId;
+        this.getCollectible();
+        console.log(this.collectibleId);
     }
 
     ngOnInit(): void {
-        if (!this.viewMode) {
-            this.message = '';
-        }
+        // if (!this.viewMode) {
+        //     this.message = '';
+        // }
     }
 
     updateCollectible(): void {
@@ -46,10 +46,20 @@ export class CollectibleDetailsComponent implements OnInit {
             .subscribe({
                 next: (res) => {
                     console.log(res);
-                    this.message = res?.message ? res.message : '';
-                    this.collectiblesListComponent.refreshList();
+                    // this.router.navigateByUrl('collectibles', {state: {subcategory: this.currentCollectible.subcategory}});
+                    this.message = res?.message ? res.message : 'Deleted';
                 },
                 error: (e) => console.error(e)
             });
+    }
+
+    getCollectible(): void {
+        this.collectibleService.get(this.collectibleId).subscribe({
+            next: (data) => {
+                console.log(data);
+                this.currentCollectible = data;
+            },
+            error: (e) => console.error(e)
+        });
     }
 }

@@ -1,4 +1,28 @@
-.edit-form {
-    max-width: 400px;
+.details-view {
+    text-align: left;
+    max-width: 60%;
     margin: auto;
+}
+
+#collectible-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5em;
+}
+
+.list-header {
+    margin: 0;
+}
+
+.header-buttons {
+    margin-left: auto;
+}
+
+button {
+    margin: 3px;
+}
+
+img {
+    max-width: 49%;
+    padding: 2px;
 }

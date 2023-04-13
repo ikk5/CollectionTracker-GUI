@@ -1,25 +1,33 @@
 <div>
     <div class="submit-form">
-            <form>
-                <div class="form-group">
-                    <label for="name"><strong>Name</strong></label>
-                    <input type="text" class="form-control" id="name" [(ngModel)]="currentCategory.name" name="name"/>
-                </div>
 
-                <table class="table table-borderless" formArrayName="subcategories">
-                    <tr>
-                        <th>Subcategories</th>
-                        <th>
-                            <button (click)="addNewSubcategory()" class="badge badge-info">Add subcategory</button>
-                        </th>
-                    </tr>
-                    <tr *ngFor="let subcategory of currentCategory.subcategories; let i = index">
-                        <td><input type="text" class="form-control" name="{{'subcategories'+i}}" id="{{'subcategories'+i}}"
-                                   [(ngModel)]="subcategory.subcategory"/></td>
-                        <td>
-                            <button class="badge badge-danger" (click)="removeSubcategory(i)">Delete</button>
-                        </td>
-                    </tr>
+        <div *ngIf="currentCategory.id">
+            <h1>Update category</h1>
+        </div>
+        <div *ngIf="!currentCategory.id">
+            <h1>Add category</h1>
+        </div>
+
+        <form>
+            <div class="form-group">
+                <label for="name"><strong>Name</strong></label>
+                <input type="text" class="form-control" id="name" [(ngModel)]="currentCategory.name" name="name"/>
+            </div>
+
+            <table class="table table-borderless" formArrayName="subcategories">
+                <tr>
+                    <th>Subcategories</th>
+                    <th>
+                        <button (click)="addNewSubcategory()" class="badge badge-info">Add subcategory</button>
+                    </th>
+                </tr>
+                <tr *ngFor="let subcategory of currentCategory.subcategories; let i = index">
+                    <td><input type="text" class="form-control" name="{{'subcategories'+i}}" id="{{'subcategories'+i}}"
+                               [(ngModel)]="subcategory.subcategory"/></td>
+                    <td>
+                        <button class="badge badge-danger" (click)="removeSubcategory(i)">Delete</button>
+                    </td>
+                </tr>
                 </table>
 
                 <table class="table table-borderless" formArrayName="questions">

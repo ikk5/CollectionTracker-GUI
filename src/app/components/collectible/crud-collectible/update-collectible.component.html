@@ -1,16 +1,16 @@
 <div class="submit-form">
 
     <div *ngIf="submitted">
-        <h4>{{message}}</h4>
+        <h1>{{message}}</h1>
         <button class="btn btn-success" (click)="newCollectible()">Add another</button>
         <br/>
     </div>
 
     <div *ngIf="currentCollectible.id">
-        <p>Update collectible</p>
+        <h1>Update collectible</h1>
     </div>
     <div *ngIf="!currentCollectible.id">
-        <h4>Add collectible</h4>
+        <h1>Add collectible</h1>
     </div>
 
     <div class="form-group">

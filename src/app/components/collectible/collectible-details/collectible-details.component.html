@@ -1,34 +1,33 @@
-<div *ngIf="viewMode">
-    <div *ngIf="currentCollectible.id">
-        <h4>Collectible</h4>
-        <div>
-            <label><strong>Name:</strong></label> {{ currentCollectible.name }}
+<div class="details-view row">
+
+    <div *ngIf="message">
+        <h1>{{message}}</h1>
+    </div>
+    <div class="col-md-6" *ngIf="currentCollectible.images != undefined && currentCollectible.images.length>0">
+        <a href="{{img.url}}" *ngFor="let img of currentCollectible.images" target="_blank">
+            <img src="{{img.url}}" alt="{{img.url}} niet gevonden"/>
+        </a>
+    </div>
+    <div class="col-md-2" *ngIf="!currentCollectible.images || currentCollectible.images.length<1"></div>
+    <div class="col-md-6">
+        <div id="collectible-header">
+            <h1>{{currentCollectible.name}}</h1>
+            <div class="header-buttons">
+                <button class="btn btn-warning" (click)="updateCollectible()">Update</button>
+                <button class="btn btn-danger" (click)="deleteCollectible()">Delete</button>
+            </div>
         </div>
+
         <div>
-            <label><strong>Category:</strong></label>
+            <label><strong>Subcategory:</strong></label>
             {{ currentCollectible.subcategory == undefined ? '' : currentCollectible.subcategory.subcategory }}
         </div>
         <div>
             <label><strong>Date added:</strong></label> {{ currentCollectible.addedDate}}
         </div>
-        <div>
-            <label><strong>Images:</strong></label>
-            <ul>
-                <li *ngFor="let img of currentCollectible.images">{{img.url}}</li>
-            </ul>
+
+        <div *ngFor="let triple of currentCollectible.triples">
+            <label><strong>{{triple.question.question}}:</strong></label> {{ triple.value}}
         </div>
-
-        <button class="badge badge-warning" (click)="updateCollectible()">
-            Edit
-        </button>
-
-        <button class="badge badge-danger mr-2" (click)="deleteCollectible()">
-            Delete
-        </button>
-    </div>
-
-    <div *ngIf="!currentCollectible">
-        <br/>
-        <p>Please click on a Collectible...</p>
     </div>
 </div>

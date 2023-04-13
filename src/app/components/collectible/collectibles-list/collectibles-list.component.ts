@@ -74,7 +74,7 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
         let data: Map<string, string>[] = [];
 
         this.displayedColumns.push('Name');
-        this.displayedColumns.push('Subcat');
+        this.displayedColumns.push('Subcategory');
 
         for (let question of (this.collectibles?.questions ? this.collectibles.questions : [])) {
             if (question.listColumn) { // TODO: hidden check
@@ -95,7 +95,7 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
             }
             map.set('id', summary.id); // Isn't shown but used for navigation
             map.set('Name', summary.name);
-            map.set('Subcat', summary.subcategory);
+            map.set('Subcategory', summary.subcategory);
             data.push(map);
         }
         this.tabledata.data = data;
@@ -131,6 +131,6 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
 
     openCollectible(row: Map<string, string>) {
         console.log('clicked: ' + row.get('id'));
-        this.router.navigateByUrl('collectible', {state: {id: row.get('id')}});
+        this.router.navigateByUrl('collectible', {state: {collectibleId: row.get('id')}});
     }
 }
