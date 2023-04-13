@@ -38,8 +38,7 @@ export class CollectibleDetailsComponent implements OnInit {
     }
 
     updateCollectible(): void {
-        this.router.navigateByUrl('updateCollectible',
-            {state: {collectible: this.currentCollectible}});
+        this.router.navigateByUrl('updateCollectible', {state: {collectible: this.currentCollectible}});
     }
 
     deleteCollectible(): void {

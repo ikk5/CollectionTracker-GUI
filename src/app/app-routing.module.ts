@@ -9,7 +9,7 @@ import {PickCategoryComponent} from "./components/collectible/crud-collectible/p
 import {UpdateCollectibleComponent} from "./components/collectible/crud-collectible/update-collectible.component";
 
 const routes: Routes = [
-    {path: '', redirectTo: 'collectibles', pathMatch: 'full'},
+    {path: '', redirectTo: 'categories', pathMatch: 'full'},
     {path: 'collectibles', component: CollectiblesListComponent},
     {path: 'collectibles/:id', component: CollectibleDetailsComponent},
     {path: 'categories', component: CategoriesListComponent},
@@ -20,7 +20,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
     exports: [RouterModule]
 })
 export class AppRoutingModule { }

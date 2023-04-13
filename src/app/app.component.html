@@ -38,12 +38,12 @@
             <mat-divider/>
 
             <div *ngFor="let category of categories">
-                <button mat-button class="menu-button" routerLink="/categories">
+                <button mat-button class="menu-button" (click)="chooseCategory(category)">
                     <span>{{category.name}}</span>
                 </button>
                 <ul style="list-style-type: none">
                     <li *ngFor="let subcat of category.subcategories">
-                        <button mat-button class="menu-button" routerLink="/categories">
+                        <button mat-button class="menu-button" (click)="chooseSubcategory(subcat)">
                             <span>{{subcat.subcategory}}</span>
                         </button>
                     </li>
