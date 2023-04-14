@@ -12,7 +12,7 @@
     <div class="col-md-6">
         <!--        <p>Chosen category: {{category?.name}}, id: {{category?.id}}</p>-->
         <!--        <p>Chosen subcategory: {{subcategory?.subcategory}}, id: {{subcategory?.subcategoryId}}</p>-->
-        <h1>{{category?.name ? category?.name : subcategory?.subcategory}} collection</h1>
+        <h1>{{category?.name ? category?.name : subcategory?.subcategory}} collection ({{tabledata.data.length}})</h1>
     </div>
 
     <mat-table class="mat-elevation-z8" [dataSource]="tabledata" matSort>
