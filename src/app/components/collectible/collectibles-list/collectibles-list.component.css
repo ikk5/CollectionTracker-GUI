@@ -3,3 +3,8 @@
     max-width: 50%;
     margin: auto;
 }
+
+.mat-mdc-table .mat-mdc-row:hover {
+    filter: brightness(90%);
+    cursor: pointer;
+}
