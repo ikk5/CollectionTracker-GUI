@@ -4,6 +4,12 @@
     margin: auto;
 }
 
+.mat-mdc-table {
+    border-collapse: separate;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
 .mat-mdc-table .mat-mdc-row:hover {
     filter: brightness(90%);
     cursor: pointer;

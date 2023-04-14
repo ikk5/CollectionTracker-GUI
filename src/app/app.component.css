@@ -13,6 +13,16 @@ mat-sidenav {
     padding: 16px;
 }
 
+.list {
+    text-align: left;
+    max-width: 750px;
+    margin: auto;
+}
+
+.icon-display {
+    transform: scale(0.75);
+}
+
 .content {
     height: calc(100vh - 130px);
     border-radius: 10px;

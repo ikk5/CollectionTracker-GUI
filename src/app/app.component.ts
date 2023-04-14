@@ -36,4 +36,9 @@ export class AppComponent {
     chooseSubcategory(subcat: Subcategory): void {
         this.router.navigateByUrl('collectibles', {state: {subcategory: subcat}});
     }
+
+    updateCategory(selectedCategory: Category): void {
+        this.router.navigateByUrl('updateCategory',
+            {state: {category: selectedCategory}});
+    }
 }

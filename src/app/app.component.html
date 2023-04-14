@@ -30,17 +30,26 @@
                 <span>Add collectible</span>
             </button>
 
-            <button mat-button class="menu-button" routerLink="/categories">
+            <button mat-button class="menu-button" routerLink="/updateCategory">
                 <mat-icon>folder</mat-icon>
-                <span>Manage categories</span>
+                <span>Add category</span>
             </button>
 
             <mat-divider/>
 
             <div *ngFor="let category of categories">
-                <button mat-button class="menu-button" (click)="chooseCategory(category)">
-                    <span>{{category.name}}</span>
-                </button>
+                <div class="list row">
+                    <div class="col-md-8">
+                        <button mat-button class="menu-button" (click)="chooseCategory(category)">
+                            <span>{{category.name}}</span>
+                        </button>
+                    </div>
+                    <div class="col-md-1">
+                        <button mat-icon-button class="icon-display" (click)="updateCategory(category)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </div>
+                </div>
                 <ul style="list-style-type: none">
                     <li *ngFor="let subcat of category.subcategories">
                         <button mat-button class="menu-button" (click)="chooseSubcategory(subcat)">

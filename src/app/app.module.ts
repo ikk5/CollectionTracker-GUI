@@ -16,9 +16,7 @@ import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {CollectibleDetailsComponent} from './components/collectible/collectible-details/collectible-details.component';
 import {CollectiblesListComponent} from './components/collectible/collectibles-list/collectibles-list.component';
-import {CategoriesListComponent} from "./components/category/categories-list/categories-list.component";
 import {UpdateCategoryComponent} from "./components/category/crud-category/update-category.component";
-import {CategoryDetailsComponent} from "./components/category/category-details/category-details.component";
 import {PickCategoryComponent} from "./components/collectible/crud-collectible/pick-category.component";
 import {UpdateCollectibleComponent} from "./components/collectible/crud-collectible/update-collectible.component";
 
@@ -28,8 +26,6 @@ import {UpdateCollectibleComponent} from "./components/collectible/crud-collecti
     AppComponent,
     CollectibleDetailsComponent,
     CollectiblesListComponent,
-    CategoriesListComponent,
-    CategoryDetailsComponent,
     UpdateCategoryComponent,
     PickCategoryComponent,
     UpdateCollectibleComponent
@@ -48,7 +44,7 @@ import {UpdateCollectibleComponent} from "./components/collectible/crud-collecti
     MatSortModule,
     BrowserAnimationsModule
   ],
-  providers: [CategoriesListComponent],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
