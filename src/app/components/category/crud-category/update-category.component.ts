@@ -4,6 +4,7 @@ import {CategoryService} from "../../../services/category.service";
 import {Subcategory} from "../../../models/subcategory.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Question} from "../../../models/question.model";
+import {AppComponent} from "../../../app.component";
 
 @Component({
     selector: 'app-update-category',
@@ -17,6 +18,7 @@ export class UpdateCategoryComponent implements OnInit {
     datatypes?: string[];
 
     constructor(private categoryService: CategoryService,
+                private appComponent: AppComponent,
                 private route: ActivatedRoute,
                 private router: Router) {
         this.currentCategory = history.state.category;
@@ -42,8 +44,7 @@ export class UpdateCategoryComponent implements OnInit {
         this.categoryService.create(this.currentCategory)
             .subscribe({
                 next: (res) => {
-                    console.log(res);
-                    this.router.navigate(['/categories']);
+                    this.handleCategoryChange(res);
                 },
                 error: (e) => console.error(e)
             });
@@ -53,11 +54,17 @@ export class UpdateCategoryComponent implements OnInit {
         this.categoryService.update(this.currentCategory.id, this.currentCategory)
             .subscribe({
                 next: (res) => {
-                    console.log(res);
-                    this.router.navigate(['/categories']);
+                    this.handleCategoryChange(res);
                 },
                 error: (e) => console.error(e)
             });
+    }
+
+
+    private handleCategoryChange(res: any) {
+        console.log(res);
+        this.appComponent.retrieveCategories();
+        this.router.navigate(['/categories']);
     }
 
     initDatatypes(): void {
