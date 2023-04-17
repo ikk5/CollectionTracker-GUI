@@ -101,4 +101,16 @@ export class UpdateCategoryComponent implements OnInit {
     removeQuestion(index: number) {
         this.currentCategory.questions?.splice(index, 1);
     }
+
+    deleteCategory(): void {
+        this.categoryService.delete(this.currentCategory.id)
+            .subscribe({
+                next: (res) => {
+                    console.log(res);
+                    this.appComponent.retrieveCategories();
+                    this.router.navigateByUrl('#');
+                },
+                error: (e) => console.error(e)
+            });
+    }
 }

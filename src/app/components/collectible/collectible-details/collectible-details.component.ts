@@ -3,6 +3,7 @@ import {Collectible} from "../../../models/collectible.model";
 import {CollectibleService} from "../../../services/collectible.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CategoryService} from "../../../services/category.service";
+import {Location} from "@angular/common";
 
 @Component({
     selector: 'app-collectible-details',
@@ -25,7 +26,8 @@ export class CollectibleDetailsComponent implements OnInit {
         private collectibleService: CollectibleService,
         private categoryService: CategoryService,
         private route: ActivatedRoute,
-        private router: Router) {
+        private router: Router,
+        private location: Location) {
         this.collectibleId = history.state.collectibleId;
         this.getCollectible();
         console.log(this.collectibleId);
@@ -46,8 +48,7 @@ export class CollectibleDetailsComponent implements OnInit {
             .subscribe({
                 next: (res) => {
                     console.log(res);
-                    // this.router.navigateByUrl('collectibles', {state: {subcategory: this.currentCollectible.subcategory}});
-                    this.message = res?.message ? res.message : 'Deleted';
+                    this.location.back();
                 },
                 error: (e) => console.error(e)
             });
