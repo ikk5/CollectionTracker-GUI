@@ -5,6 +5,10 @@ import {CollectibleDetailsComponent} from './components/collectible/collectible-
 import {UpdateCategoryComponent} from "./components/category/crud-category/update-category.component";
 import {PickCategoryComponent} from "./components/collectible/crud-collectible/pick-category.component";
 import {UpdateCollectibleComponent} from "./components/collectible/crud-collectible/update-collectible.component";
+import {HomeComponent} from "./components/home.component";
+import {LoginComponent} from "./components/user/login.component";
+import {RegisterComponent} from "./components/user/register.component";
+import {ProfileComponent} from "./components/user/profile.component";
 
 const routes: Routes = [
     {path: '', redirectTo: 'categories', pathMatch: 'full'},
@@ -12,6 +16,10 @@ const routes: Routes = [
     {path: 'collectible', component: CollectibleDetailsComponent},
     {path: 'updateCategory', component: UpdateCategoryComponent},
     {path: 'pickCategory', component: PickCategoryComponent},
+    {path: 'home', component: HomeComponent},
+    {path: 'login', component: LoginComponent},
+    {path: 'register', component: RegisterComponent},
+    {path: 'profile', component: ProfileComponent},
     {path: 'updateCollectible', component: UpdateCollectibleComponent}
 ];
 

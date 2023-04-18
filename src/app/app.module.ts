@@ -19,6 +19,11 @@ import {CollectiblesListComponent} from './components/collectible/collectibles-l
 import {UpdateCategoryComponent} from "./components/category/crud-category/update-category.component";
 import {PickCategoryComponent} from "./components/collectible/crud-collectible/pick-category.component";
 import {UpdateCollectibleComponent} from "./components/collectible/crud-collectible/update-collectible.component";
+import {httpInterceptorProviders} from "./helpers/auth.interceptor";
+import {LoginComponent} from "./components/user/login.component";
+import {RegisterComponent} from "./components/user/register.component";
+import {ProfileComponent} from "./components/user/profile.component";
+import {HomeComponent} from "./components/home.component";
 
 
 @NgModule({
@@ -28,7 +33,11 @@ import {UpdateCollectibleComponent} from "./components/collectible/crud-collecti
     CollectiblesListComponent,
     UpdateCategoryComponent,
     PickCategoryComponent,
-    UpdateCollectibleComponent
+    UpdateCollectibleComponent,
+    LoginComponent,
+    RegisterComponent,
+    ProfileComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +53,7 @@ import {UpdateCollectibleComponent} from "./components/collectible/crud-collecti
     MatSortModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

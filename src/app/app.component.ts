@@ -3,6 +3,8 @@ import {Category} from "./models/category.model";
 import {CategoryService} from "./services/category.service";
 import {Subcategory} from "./models/subcategory.model";
 import {Router} from "@angular/router";
+import {StorageService} from "./services/storage.service";
+import {AuthService} from "./services/auth.service";
 
 @Component({
     selector: 'app-root',
@@ -11,11 +13,39 @@ import {Router} from "@angular/router";
 })
 export class AppComponent {
     title = 'CollectionTracker-GUI';
+    isLoggedIn = false;
+    username?: string;
     categories?: Category[];
 
     constructor(private categoryService: CategoryService,
-                private router: Router) {
+                private router: Router,
+                private storageService: StorageService,
+                private authService: AuthService) {
         this.retrieveCategories();
+    }
+
+    ngOnInit(): void {
+        this.isLoggedIn = this.storageService.isLoggedIn();
+
+        if (this.isLoggedIn) {
+            const user = this.storageService.getUser();
+
+            this.username = user.username;
+        }
+    }
+
+    logout(): void {
+        this.authService.logout().subscribe({
+            next: res => {
+                console.log(res);
+                this.storageService.clean();
+
+                window.location.reload();
+            },
+            error: err => {
+                console.log(err);
+            }
+        });
     }
 
     retrieveCategories(): void {

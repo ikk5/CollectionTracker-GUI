@@ -5,11 +5,18 @@
             <mat-icon *ngIf="sidenav.opened"> close</mat-icon>
         </button>
         <a href="#" class="navbar-brand">CollectionTracker</a>
-        <!--    <div class="navbar-nav mr-auto">-->
-        <!--      <a routerLink="collectibles" class="nav-link">Collectibles</a>-->
-        <!--      <a routerLink="pickCategory" class="nav-link">Add collectible</a>-->
-        <!--      <a routerLink="categories" class="nav-link">Categories</a>-->
-        <!--    </div>-->
+        <div class="navbar-nav mr-auto">
+            <!--            <a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user">User</a>-->
+        </div>
+        <div class="navbar-nav" *ngIf="!isLoggedIn">
+            <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
+            <a href="/login" class="nav-link" routerLink="login">Login</a>
+        </div>
+        <div class="navbar-nav" *ngIf="isLoggedIn">
+            <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
+            <a class="nav-link" style="cursor: pointer" (click)="logout()">LogOut</a>
+        </div>
+
     </mat-toolbar>
 
     <mat-sidenav-container hasBackdrop="false">
