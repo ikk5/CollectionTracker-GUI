@@ -3,4 +3,5 @@ export class Subcategory {
     category?: string;
     subcategoryId?: any;
     subcategory?: string;
+    username?: string;
 }

@@ -24,6 +24,7 @@ import {LoginComponent} from "./components/user/login.component";
 import {RegisterComponent} from "./components/user/register.component";
 import {ProfileComponent} from "./components/user/profile.component";
 import {HomeComponent} from "./components/home.component";
+import {CollectionOverviewComponent} from "./components/collectible/collection/collection-overview.component";
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import {HomeComponent} from "./components/home.component";
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    HomeComponent
+    HomeComponent,
+    CollectionOverviewComponent
   ],
   imports: [
     BrowserModule,

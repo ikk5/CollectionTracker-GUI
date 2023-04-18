@@ -21,7 +21,6 @@ export class AppComponent {
                 private router: Router,
                 private storageService: StorageService,
                 private authService: AuthService) {
-        this.retrieveCategories();
     }
 
     ngOnInit(): void {
@@ -32,6 +31,7 @@ export class AppComponent {
 
             this.username = user.username;
         }
+        this.retrieveCategories();
     }
 
     logout(): void {

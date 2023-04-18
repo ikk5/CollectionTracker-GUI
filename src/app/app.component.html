@@ -25,45 +25,47 @@
                 <mat-icon>home</mat-icon>
                 <span>Home</span>
             </button>
-            <!--      <button mat-button class="menu-button" routerLink="/profile">-->
-            <!--        <mat-icon>person</mat-icon>-->
-            <!--        <span>Profile</span>-->
-            <!--      </button>-->
 
-            <mat-divider/>
+            <div *ngIf="isLoggedIn">
+                <mat-divider/>
+                <button mat-button class="menu-button" routerLink="/collection/{{username}}">
+                    <mat-icon>collections_bookmark</mat-icon>
+                    <span>My collection</span>
+                </button>
 
-            <button mat-button class="menu-button" routerLink="/pickCategory">
-                <mat-icon>add_to_photos</mat-icon>
-                <span>Add collectible</span>
-            </button>
+                <button mat-button class="menu-button" routerLink="/pickCategory">
+                    <mat-icon>add_to_photos</mat-icon>
+                    <span>Add collectible</span>
+                </button>
 
-            <button mat-button class="menu-button" routerLink="/updateCategory">
-                <mat-icon>folder</mat-icon>
-                <span>Add category</span>
-            </button>
+                <button mat-button class="menu-button" routerLink="/updateCategory">
+                    <mat-icon>folder</mat-icon>
+                    <span>Add category</span>
+                </button>
 
-            <mat-divider/>
+                <mat-divider/>
 
-            <div *ngFor="let category of categories">
-                <div class="list row">
-                    <div class="col-md-8">
-                        <button mat-button class="menu-button" (click)="chooseCategory(category)">
-                            <span>{{category.name}}</span>
-                        </button>
+                <div *ngFor="let category of categories">
+                    <div class="list row">
+                        <div class="col-md-8">
+                            <button mat-button class="menu-button" (click)="chooseCategory(category)">
+                                <span>{{category.name}}</span>
+                            </button>
+                        </div>
+                        <div class="col-md-1">
+                            <button mat-icon-button class="icon-display" (click)="updateCategory(category)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </div>
                     </div>
-                    <div class="col-md-1">
-                        <button mat-icon-button class="icon-display" (click)="updateCategory(category)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                    </div>
+                    <ul style="list-style-type: none">
+                        <li *ngFor="let subcat of category.subcategories">
+                            <button mat-button class="menu-button" (click)="chooseSubcategory(subcat)">
+                                <span>{{subcat.subcategory}}</span>
+                            </button>
+                        </li>
+                    </ul>
                 </div>
-                <ul style="list-style-type: none">
-                    <li *ngFor="let subcat of category.subcategories">
-                        <button mat-button class="menu-button" (click)="chooseSubcategory(subcat)">
-                            <span>{{subcat.subcategory}}</span>
-                        </button>
-                    </li>
-                </ul>
             </div>
 
         </mat-sidenav>

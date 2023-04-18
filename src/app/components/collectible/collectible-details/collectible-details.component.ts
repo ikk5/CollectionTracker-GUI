@@ -4,6 +4,7 @@ import {CollectibleService} from "../../../services/collectible.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CategoryService} from "../../../services/category.service";
 import {Location} from "@angular/common";
+import {StorageService} from "../../../services/storage.service";
 
 @Component({
     selector: 'app-collectible-details',
@@ -21,22 +22,23 @@ export class CollectibleDetailsComponent implements OnInit {
 
     collectibleId?: number;
     message = '';
+    ownerIsLoggedIn: boolean = false;
+    username: string = '';
 
     constructor(
         private collectibleService: CollectibleService,
         private categoryService: CategoryService,
         private route: ActivatedRoute,
         private router: Router,
-        private location: Location) {
-        this.collectibleId = history.state.collectibleId;
-        this.getCollectible();
-        console.log(this.collectibleId);
+        private location: Location,
+        private storageService: StorageService) {
     }
 
     ngOnInit(): void {
-        // if (!this.viewMode) {
-        //     this.message = '';
-        // }
+        this.username = this.storageService.getUser().username;
+        this.collectibleId = history.state.collectibleId;
+        console.log(this.collectibleId);
+        this.getCollectible();
     }
 
     updateCollectible(): void {
@@ -58,6 +60,7 @@ export class CollectibleDetailsComponent implements OnInit {
         this.collectibleService.get(this.collectibleId).subscribe({
             next: (data) => {
                 console.log(data);
+                this.ownerIsLoggedIn = this.username == data.subcategory!.username;
                 this.currentCollectible = data;
             },
             error: (e) => console.error(e)

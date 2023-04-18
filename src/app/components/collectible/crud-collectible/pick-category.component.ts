@@ -11,10 +11,7 @@ import {Router} from "@angular/router";
 })
 export class PickCategoryComponent implements OnInit {
 
-    collectible: Collectible = new Collectible();
-
     categories: Category[] = [];
-    selectedCategory?: Category;
 
     constructor(private categoryService: CategoryService,
                 private router: Router) {
@@ -36,6 +33,6 @@ export class PickCategoryComponent implements OnInit {
     }
 
     chooseCategory(cat: Category): void {
-        this.router.navigateByUrl('updateCollectible', {state: {category: cat, collectible: this.collectible}});
+        this.router.navigateByUrl('updateCollectible', {state: {category: cat, collectible: new Collectible()}});
     }
 }

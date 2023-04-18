@@ -12,7 +12,7 @@
     <div class="col-md-6">
         <div id="collectible-header">
             <h1>{{currentCollectible.name}}</h1>
-            <div class="header-buttons">
+            <div class="header-buttons" *ngIf="ownerIsLoggedIn">
                 <button class="btn btn-warning" (click)="updateCollectible()">Update</button>
                 <button class="btn btn-danger" (click)="deleteCollectible()">Delete</button>
             </div>

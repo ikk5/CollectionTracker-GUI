@@ -9,11 +9,12 @@ import {HomeComponent} from "./components/home.component";
 import {LoginComponent} from "./components/user/login.component";
 import {RegisterComponent} from "./components/user/register.component";
 import {ProfileComponent} from "./components/user/profile.component";
+import {CollectionOverviewComponent} from "./components/collectible/collection/collection-overview.component";
 
 const routes: Routes = [
     {path: '', redirectTo: 'categories', pathMatch: 'full'},
     {path: 'collection', component: CollectiblesListComponent},
-    // {path: 'collection/:user', component: CollectiblesListComponent},
+    {path: 'collection/:user', component: CollectionOverviewComponent},
     {path: 'collectible', component: CollectibleDetailsComponent},
     {path: 'updateCategory', component: UpdateCategoryComponent},
     {path: 'pickCategory', component: PickCategoryComponent},
