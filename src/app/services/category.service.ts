@@ -18,6 +18,10 @@ export class CategoryService {
         return this.http.get<Category[]>(categoriesUrl);
     }
 
+    getAllForUser(username: any): Observable<Category[]> {
+        return this.http.get<Category[]>(`${categoriesUrl}?username=${username}`);
+    }
+
     get(id: any): Observable<Category> {
         return this.http.get(`${categoriesUrl}/${id}`);
     }
@@ -36,10 +40,6 @@ export class CategoryService {
 
     deleteAll(): Observable<any> {
         return this.http.delete(categoriesUrl);
-    }
-
-    findByName(name: any): Observable<Category[]> {
-        return this.http.get<Category[]>(`${categoriesUrl}?name=${name}`);
     }
 
     getAllDatatypes(): Observable<string[]> {

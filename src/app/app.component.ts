@@ -60,11 +60,11 @@ export class AppComponent {
     }
 
     chooseCategory(cat: Category): void {
-        this.router.navigateByUrl('collectibles', {state: {category: cat}});
+        this.router.navigateByUrl('collection', {state: {category: cat}});
     }
 
     chooseSubcategory(subcat: Subcategory): void {
-        this.router.navigateByUrl('collectibles', {state: {subcategory: subcat}});
+        this.router.navigateByUrl('collection', {state: {subcategory: subcat}});
     }
 
     updateCategory(selectedCategory: Category): void {

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Collectible} from "../models/collectible.model";
 import {Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CollectiblesList} from "../models/collectiblesList.model";
 
 const baseUrl = 'http://localhost:8080/api/collectibles'
@@ -14,12 +14,10 @@ export class CollectibleService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<Collectible[]> {
-    return this.http.get<Collectible[]>(baseUrl);
-  }
-
   getAllWithSubcategories(subcategories: number[]): Observable<CollectiblesList> {
-    return this.http.post<CollectiblesList>(baseUrl + '/list', subcategories); // TODO: change to GET
+    return this.http.get<CollectiblesList>(baseUrl + '/list', {
+      headers: new HttpHeaders({'subcategoryIds': subcategories.join(',')})
+    });
   }
 
   get(id: any): Observable<Collectible> {

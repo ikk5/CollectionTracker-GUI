@@ -64,7 +64,7 @@ export class UpdateCategoryComponent implements OnInit {
     private handleCategoryChange(res: any) {
         console.log(res);
         this.appComponent.retrieveCategories();
-        this.router.navigate(['/categories']);
+        this.router.navigate(['/updateCategory']);
     }
 
     initDatatypes(): void {

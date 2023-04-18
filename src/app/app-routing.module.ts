@@ -12,7 +12,8 @@ import {ProfileComponent} from "./components/user/profile.component";
 
 const routes: Routes = [
     {path: '', redirectTo: 'categories', pathMatch: 'full'},
-    {path: 'collectibles', component: CollectiblesListComponent},
+    {path: 'collection', component: CollectiblesListComponent},
+    // {path: 'collection/:user', component: CollectiblesListComponent},
     {path: 'collectible', component: CollectibleDetailsComponent},
     {path: 'updateCategory', component: UpdateCategoryComponent},
     {path: 'pickCategory', component: PickCategoryComponent},
