@@ -3,8 +3,7 @@ import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {Category} from "../models/category.model";
 
-const baseUrl = 'http://localhost:8080/api/'
-const categoriesUrl = baseUrl + 'categories'
+const categoriesUrl = 'categories'
 
 @Injectable({
     providedIn: 'root'
@@ -43,6 +42,7 @@ export class CategoryService {
     }
 
     getAllDatatypes(): Observable<string[]> {
-        return this.http.get<string[]>(baseUrl + 'datatypes');
+        // return this.http.get<string[]>(baseUrl + 'datatypes');
+        return this.http.get<string[]>('datatypes');
     }
 }

@@ -2,14 +2,17 @@ import {Injectable} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
+const baseUrl = 'http://localhost:8080/api/'
+
 @Injectable()
 export class HttpRequestInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        req = req.clone({
-            withCredentials: true,
+        const apiReq = req.clone({
+            url: baseUrl + req.url,
+            withCredentials: true
         });
 
-        return next.handle(req);
+        return next.handle(apiReq);
     }
 }
 

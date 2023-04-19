@@ -4,7 +4,7 @@ import {Observable} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CollectiblesList} from "../models/collectiblesList.model";
 
-const baseUrl = 'http://localhost:8080/api/collectibles'
+const baseUrl = 'collectibles'
 
 @Injectable({
   providedIn: 'root'

@@ -12,7 +12,7 @@ import {ProfileComponent} from "./components/user/profile.component";
 import {CollectionOverviewComponent} from "./components/collectible/collection/collection-overview.component";
 
 const routes: Routes = [
-    {path: '', redirectTo: 'categories', pathMatch: 'full'},
+    {path: '', redirectTo: 'home', pathMatch: 'full'},
     {path: 'collection', component: CollectiblesListComponent},
     {path: 'collection/:user', component: CollectionOverviewComponent},
     {path: 'collectible', component: CollectibleDetailsComponent},
