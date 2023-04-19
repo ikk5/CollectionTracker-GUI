@@ -101,21 +101,6 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
         this.tabledata.data = data;
     }
 
-    refreshList(): void {
-        this.retrieveCollectibles();
-    }
-
-    removeAllCollectibles(): void {
-        this.collectibleService.deleteAll()
-            .subscribe({
-                next: (res) => {
-                    console.log(res);
-                    this.refreshList();
-                },
-                error: (e) => console.error(e)
-            });
-    }
-
     // TODO: searchName(): void {
     //   this.currentCollectible = {};
     //   this.currentIndex = -1;

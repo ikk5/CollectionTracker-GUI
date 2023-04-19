@@ -45,4 +45,20 @@ export class CollectionOverviewComponent implements OnInit {
     chooseSubcategory(subcat: Subcategory): void {
         this.router.navigateByUrl('collection', {state: {subcategory: subcat}});
     }
+
+    countCategoryTotals(cat: Category): number {
+        let count: number = 0;
+        for (let subcat of cat.subcategories ? cat.subcategories : []) {
+            count += subcat.collectibleCount;
+        }
+        return count;
+    }
+
+    countCollectionTotals(): number {
+        let count: number = 0;
+        for (let cat of this.categories) {
+            count += this.countCategoryTotals(cat);
+        }
+        return count;
+    }
 }

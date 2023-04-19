@@ -6,6 +6,7 @@ import {Category} from "../../../models/category.model";
 import {CategoryService} from "../../../services/category.service";
 import {ImageLink} from "../../../models/image.model";
 import {Triple} from "../../../models/triple.model";
+import {AppComponent} from "../../../app.component";
 
 @Component({
     selector: 'app-update-collectible',
@@ -26,7 +27,8 @@ export class UpdateCollectibleComponent implements OnInit {
         private collectibleService: CollectibleService,
         private categoryService: CategoryService,
         private route: ActivatedRoute,
-        private router: Router) {
+        private router: Router,
+        private appComponent: AppComponent) {
         this.currentCollectible = history.state.collectible;
         this.currentCategory = history.state.category;
     }
@@ -90,6 +92,7 @@ export class UpdateCollectibleComponent implements OnInit {
                     console.log(res);
                     this.submitted = true;
                     this.message = res.message ? res.message : 'This collectible was updated successfully!';
+                    this.appComponent.retrieveCategories();
                 },
                 error: (e) => console.error(e)
             });
@@ -102,6 +105,8 @@ export class UpdateCollectibleComponent implements OnInit {
                     console.log(res);
                     this.submitted = true;
                     this.message = res.message ? res.message : 'This collectible was saved successfully!';
+                    this.currentCollectible.id = res.id;
+                    this.appComponent.retrieveCategories();
                 },
                 error: (e) => console.error(e)
             });

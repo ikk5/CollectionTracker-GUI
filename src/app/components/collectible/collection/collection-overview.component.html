@@ -1,14 +1,14 @@
 <div>
     <div class="submit-form">
-        <h1>{{username}}'s collection</h1>
+        <h1>{{username}}'s collection ({{countCollectionTotals()}})</h1>
         <ul class="list-group" *ngFor="let cat of categories">
             <li class="list-group-item" (click)="chooseCategory(cat)">
-                {{ cat.name }}
+                {{ cat.name }} ({{countCategoryTotals(cat)}})
             </li>
             <li style="list-style-type: none">
                 <ul class="list-group">
                     <li style="margin-left: 5%;" class="list-group-item" *ngFor="let subcat of cat.subcategories" (click)="chooseSubcategory(subcat)">
-                        {{ subcat.subcategory }}
+                        {{ subcat.subcategory }} ({{subcat.collectibleCount}})
                     </li>
                 </ul>
             </li>

@@ -4,4 +4,5 @@ export class Subcategory {
     subcategoryId?: any;
     subcategory?: string;
     username?: string;
+    collectibleCount: number = 0;
 }

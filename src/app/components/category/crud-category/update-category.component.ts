@@ -16,6 +16,8 @@ export class UpdateCategoryComponent implements OnInit {
     currentCategory: Category;
 
     datatypes?: string[];
+    message = '';
+    submitted: boolean = false;
 
     constructor(private categoryService: CategoryService,
                 private appComponent: AppComponent,
@@ -45,6 +47,7 @@ export class UpdateCategoryComponent implements OnInit {
             .subscribe({
                 next: (res) => {
                     this.handleCategoryChange(res);
+
                 },
                 error: (e) => console.error(e)
             });
@@ -55,6 +58,8 @@ export class UpdateCategoryComponent implements OnInit {
             .subscribe({
                 next: (res) => {
                     this.handleCategoryChange(res);
+                    this.message = res.message ? res.message : 'This collectible was saved successfully!';
+                    this.submitted = true;
                 },
                 error: (e) => console.error(e)
             });
@@ -64,7 +69,9 @@ export class UpdateCategoryComponent implements OnInit {
     private handleCategoryChange(res: any) {
         console.log(res);
         this.appComponent.retrieveCategories();
-        this.router.navigate(['/updateCategory']);
+        this.currentCategory.id = res.id;
+        this.message = res.message ? res.message : 'This collectible was saved successfully!';
+        this.submitted = true;
     }
 
     initDatatypes(): void {
@@ -79,6 +86,7 @@ export class UpdateCategoryComponent implements OnInit {
     }
 
     newCategory(): void {
+        this.submitted = false;
         this.currentCategory = {
             name: '',
             subcategories: [new Subcategory()],

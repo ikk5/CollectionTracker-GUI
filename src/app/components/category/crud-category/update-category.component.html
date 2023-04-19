@@ -1,6 +1,12 @@
 <div>
     <div class="submit-form">
 
+        <div *ngIf="submitted">
+            <h1>{{message}}</h1>
+            <button class="btn btn-success" (click)="newCategory()">Add another</button>
+            <br/>
+        </div>
+
         <div *ngIf="currentCategory.id">
             <h1>Update category</h1>
         </div>
@@ -75,7 +81,7 @@
         </form>
 
         <button (click)="saveCategory()" class="btn btn-success">Save</button>
-        <button class="btn btn-danger" style="margin: 2px" (click)="deleteCategory()">Delete</button>
+        <button *ngIf="currentCategory.id" class="btn btn-danger" style="margin: 2px" (click)="deleteCategory()">Delete</button>
 
     </div>
 </div>

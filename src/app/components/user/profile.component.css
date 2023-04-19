@@ -1,4 +1,8 @@
-.login-form {
-    max-width: 400px;
+.profile-page {
+    max-width: 50%;
     margin: auto;
+}
+
+button {
+    margin: 2px;
 }

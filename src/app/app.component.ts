@@ -40,7 +40,9 @@ export class AppComponent {
                 console.log(res);
                 this.storageService.clean();
 
-                window.location.reload();
+                this.router.navigate(['/']).then(() => {
+                    window.location.reload(); // This reload refreshes the top navbar.
+                })
             },
             error: err => {
                 console.log(err);
@@ -70,5 +72,13 @@ export class AppComponent {
     updateCategory(selectedCategory: Category): void {
         this.router.navigateByUrl('updateCategory',
             {state: {category: selectedCategory}});
+    }
+
+    countCategoryTotals(cat: Category): number {
+        let count: number = 0;
+        for (let subcat of cat.subcategories ? cat.subcategories : []) {
+            count += subcat.collectibleCount;
+        }
+        return count;
     }
 }
