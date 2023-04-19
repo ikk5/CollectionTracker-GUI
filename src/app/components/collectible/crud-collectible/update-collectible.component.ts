@@ -123,6 +123,10 @@ export class UpdateCollectibleComponent implements OnInit {
         this.message = '';
     }
 
+    navigateToDetails() {
+        this.router.navigateByUrl('collectible', {state: {collectibleId: this.currentCollectible.id}});
+    }
+
     addNewImage() {
         this.currentCollectible.images?.push(new ImageLink());
     }
