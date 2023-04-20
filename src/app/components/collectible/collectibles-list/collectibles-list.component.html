@@ -9,10 +9,26 @@
     <!--            </div>-->
     <!--        </div>-->
     <!--    </div>-->
+
+
     <div class="col-md-6">
-        <!--        <p>Chosen category: {{category?.name}}, id: {{category?.id}}</p>-->
-        <!--        <p>Chosen subcategory: {{subcategory?.subcategory}}, id: {{subcategory?.subcategoryId}}</p>-->
         <h1>{{category?.name ? category?.name : subcategory?.subcategory}} collection ({{tabledata.data.length}})</h1>
+    </div>
+
+    <!--    <mat-form-field appearance="fill">-->
+    <!--        <mat-label>Search</mat-label>-->
+    <!--        <input matInput placeholder="please enter a value" (input)="applyFilter($event)">-->
+    <!--    </mat-form-field>-->
+
+    <div>
+        <mat-form-field *ngFor="let filter of filterSelectObj" style="margin-left: 15px;">
+            <mat-label>Filter {{filter.name}}</mat-label>
+            <select matNativeControl name="{{filter.columnProp}}" [(ngModel)]="filter.modelValue"
+                    (change)="filterChange(filter,$event)">
+                <option [value]="item" *ngFor="let item of filter.options">{{item}}</option>
+            </select>
+        </mat-form-field>
+        <button mat-flat-button color="warn" (click)="resetFilters()">Reset</button>
     </div>
 
     <mat-table class="mat-elevation-z8" [dataSource]="tabledata" matSort>

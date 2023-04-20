@@ -18,6 +18,8 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
 
     displayedColumns?: string[];
     tabledata: MatTableDataSource<Map<string, string>> = new MatTableDataSource<Map<string, string>>();
+    filterSelectObj: any[] = [];
+    filterValues: any = {};
 
     collectibles?: CollectiblesList;
     category?: Category;
@@ -34,6 +36,8 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
 
     ngOnInit(): void {
         this.retrieveCollectibles();
+
+        this.tabledata.filterPredicate = this.createFilter();
     }
 
     ngAfterViewInit(): void {
@@ -99,23 +103,84 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
             data.push(map);
         }
         this.tabledata.data = data;
-    }
 
-    // TODO: searchName(): void {
-    //   this.currentCollectible = {};
-    //   this.currentIndex = -1;
-    //   this.collectibleService.findByName(this.title)
-    //       .subscribe({
-    //         next: (data) => {
-    //           this.collectibles = data;
-    //           console.log(data);
-    //         },
-    //         error: (e) => console.error(e)
-    //       });
-    // }
+        // Init table filters
+        this.filterSelectObj = [];
+        for (let column of this.displayedColumns) {
+            if (column !== 'Name') {
+                this.filterSelectObj.push(
+                    {
+                        name: column,
+                        columnProp: column,
+                        options: []
+                    }
+                );
+            }
+        }
+
+        this.filterSelectObj.filter((o) => {
+            o.options = this.getFilterObject(data, o.columnProp);
+        });
+    }
 
     openCollectible(row: Map<string, string>) {
         console.log('clicked: ' + row.get('id'));
         this.router.navigateByUrl('collectible', {state: {collectibleId: row.get('id')}});
+    }
+
+    // applyFilter(event: Event): void {
+    //     const filter = (event.target as HTMLInputElement).value.trim().toLocaleLowerCase();
+    //     this.tabledata.filter = filter;
+    //     if (this.tabledata.paginator) {
+    //         this.tabledata.paginator.firstPage();
+    //     }
+    // }
+
+    // Get unique values for the column filters.
+    getFilterObject(fullObj: Map<string, string>[], key: string) {
+        const uniqChk: any[] = [];
+        fullObj.filter((obj: Map<string, string>) => {
+            if (!uniqChk.includes(obj.get(key))) {
+                uniqChk.push(obj.get(key));
+            }
+            return obj;
+        });
+        return uniqChk;
+    }
+
+    filterChange(filter: any, event: any) {
+        this.filterValues[filter.columnProp] = event.target.value.trim().toLowerCase()
+        this.tabledata.filter = JSON.stringify(this.filterValues)
+    }
+
+    createFilter() {
+        return function (data: any, filter: string): boolean {
+            let searchTerms = JSON.parse(filter);
+
+            console.log(searchTerms);
+
+            let nameSearch = () => {
+                let found = false;
+                for (const col in searchTerms) {
+                    searchTerms[col].trim().toLowerCase().split(' ').forEach((word: string) => {
+                        if ((data.get(col).toString().toLowerCase().indexOf(word) != -1 && word !== '')
+                            || data.get(col).toString() === word
+                            || (!data.get(col) && word === '')) {
+                            found = true
+                        }
+                    });
+                }
+                return found
+            }
+            return nameSearch()
+        }
+    }
+
+    resetFilters() {
+        this.filterValues = {}
+        this.filterSelectObj.forEach((value, key) => {
+            value.modelValue = undefined;
+        })
+        this.tabledata.filter = "";
     }
 }

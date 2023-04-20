@@ -108,11 +108,14 @@ export class UpdateCategoryComponent implements OnInit {
         this.categoryService.create(this.currentCategory)
             .subscribe({
                 next: (res) => {
+                    console.log(res);
                     this.handleCategoryChange(res);
+                    this.submitted = true;
+                    this.message = res.message ? res.message : 'This category was saved successfully!';
                 },
                 error: (e) => {
                     this.submitted = true;
-                    this.message = e.error.message ? e.error.message : "The request failed for some reason.";
+                    this.message = e.error?.message ? e.error.message : "The request failed for some reason.";
                     console.error(e);
                 }
             });
@@ -122,11 +125,14 @@ export class UpdateCategoryComponent implements OnInit {
         this.categoryService.update(this.currentCategory.id, this.currentCategory)
             .subscribe({
                 next: (res) => {
+                    console.log(res);
                     this.handleCategoryChange(res);
+                    this.submitted = true;
+                    this.message = res.message ? res.message : 'This category was saved successfully!';
                 },
                 error: (e) => {
                     this.submitted = true;
-                    this.message = e.error.message ? e.error.message : "The request failed for some reason.";
+                    this.message = e.error?.message ? e.error.message : "The request failed for some reason.";
                     console.error(e);
                 }
             });
