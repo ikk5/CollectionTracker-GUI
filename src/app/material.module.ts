@@ -13,6 +13,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatSortModule} from "@angular/material/sort";
+import {MatDividerModule} from "@angular/material/divider";
 
 @NgModule({
     imports: [
@@ -28,7 +30,9 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
         MatNativeDateModule,
         MatTooltipModule,
         MatTableModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatDividerModule,
+        MatSortModule
     ],
     exports: [
         MatButtonModule,
@@ -43,7 +47,9 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
         MatTooltipModule,
         MatTableModule,
         MatPaginatorModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatDividerModule,
+        MatSortModule
     ],
     providers: [
         MatDatepickerModule,

@@ -167,7 +167,11 @@ export class UpdateCollectibleComponent implements OnInit {
                     this.message = res.message ? res.message : 'This collectible was updated successfully!';
                     this.appComponent.retrieveCategories();
                 },
-                error: (e) => console.error(e)
+                error: (e) => {
+                    this.submitted = true;
+                    this.message = e.error.message ? e.error.message : "The request failed for some reason.";
+                    console.error(e);
+                }
             });
     }
 
@@ -181,7 +185,11 @@ export class UpdateCollectibleComponent implements OnInit {
                     this.currentCollectible.id = res.id;
                     this.appComponent.retrieveCategories();
                 },
-                error: (e) => console.error(e)
+                error: (e) => {
+                    this.submitted = true;
+                    this.message = e.error.message ? e.error.message : "The request failed for some reason.";
+                    console.error(e);
+                }
             });
     }
 
