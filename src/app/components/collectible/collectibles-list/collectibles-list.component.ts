@@ -20,6 +20,7 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
     tabledata: MatTableDataSource<Map<string, string>> = new MatTableDataSource<Map<string, string>>();
     filterSelectObj: any[] = [];
     filterValues: any = {};
+    searchValue: string = '';
 
     collectibles?: CollectiblesList;
     category?: Category;
@@ -128,13 +129,16 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
         this.router.navigateByUrl('collectible', {state: {collectibleId: row.get('id')}});
     }
 
-    // applyFilter(event: Event): void {
-    //     const filter = (event.target as HTMLInputElement).value.trim().toLocaleLowerCase();
-    //     this.tabledata.filter = filter;
-    //     if (this.tabledata.paginator) {
-    //         this.tabledata.paginator.firstPage();
-    //     }
-    // }
+    applyFilter(event: Event): void {
+        const search = (event.target as HTMLInputElement).value.trim().toLocaleLowerCase();
+        if (search.length > 1) {
+            this.filterValues['Name'] = search;
+            this.tabledata.filter = JSON.stringify(this.filterValues);
+            // if (this.tabledata.paginator) {
+            //     this.tabledata.paginator.firstPage();
+            // }
+        }
+    }
 
     // Get unique values for the column filters.
     getFilterObject(fullObj: Map<string, string>[], key: string) {
@@ -161,12 +165,18 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
 
             let nameSearch = () => {
                 let found = false;
+                let anyFalse = false;
                 for (const col in searchTerms) {
                     searchTerms[col].trim().toLowerCase().split(' ').forEach((word: string) => {
-                        if ((data.get(col).toString().toLowerCase().indexOf(word) != -1 && word !== '')
+                        if (!anyFalse && (
+                            (data.get(col).toString().toLowerCase().indexOf(word) != -1 && word !== '')
                             || data.get(col).toString() === word
-                            || (!data.get(col) && word === '')) {
+                            || (!data.get(col) && word === '')
+                        )) {
                             found = true
+                        } else {
+                            found = false;
+                            anyFalse = true;
                         }
                     });
                 }
@@ -177,6 +187,7 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
     }
 
     resetFilters() {
+        this.searchValue = '';
         this.filterValues = {}
         this.filterSelectObj.forEach((value, key) => {
             value.modelValue = undefined;

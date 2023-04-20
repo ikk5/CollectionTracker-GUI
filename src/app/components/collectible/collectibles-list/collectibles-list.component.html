@@ -1,26 +1,15 @@
 <div class="list row" xmlns="http://www.w3.org/1999/html">
-    <!--    <div class="col-md-8">-->
-    <!--        <div class="input-group mb-3">-->
-    <!--            <input type="text" class="form-control" placeholder="Search by title" [(ngModel)]="title"/>-->
-    <!--            <div class="input-group-append">-->
-    <!--                <button class="btn btn-outline-secondary" type="button" (click)="searchName()">-->
-    <!--                    Search-->
-    <!--                </button>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
-
-
     <div class="col-md-6">
         <h1>{{category?.name ? category?.name : subcategory?.subcategory}} collection ({{tabledata.data.length}})</h1>
     </div>
 
-    <!--    <mat-form-field appearance="fill">-->
-    <!--        <mat-label>Search</mat-label>-->
-    <!--        <input matInput placeholder="please enter a value" (input)="applyFilter($event)">-->
-    <!--    </mat-form-field>-->
-
+    <!--  Filters   -->
     <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Search Name</mat-label>
+            <input matInput placeholder="please enter a value" (input)="applyFilter($event)" [(ngModel)]="searchValue">
+        </mat-form-field>
+
         <mat-form-field *ngFor="let filter of filterSelectObj" style="margin-left: 15px;">
             <mat-label>Filter {{filter.name}}</mat-label>
             <select matNativeControl name="{{filter.columnProp}}" [(ngModel)]="filter.modelValue"
@@ -28,7 +17,8 @@
                 <option [value]="item" *ngFor="let item of filter.options">{{item}}</option>
             </select>
         </mat-form-field>
-        <button mat-flat-button color="warn" (click)="resetFilters()">Reset</button>
+
+        <button mat-flat-button color="warn" style="margin-left: 15px;" (click)="resetFilters()">Reset</button>
     </div>
 
     <mat-table class="mat-elevation-z8" [dataSource]="tabledata" matSort>
