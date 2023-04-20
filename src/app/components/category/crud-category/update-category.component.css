@@ -1,4 +1,16 @@
 .submit-form {
-    max-width: 40%;
+    max-width: 50%;
     margin: auto;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.list-input {
+    margin-bottom: -1.25em;
+}
+
+mat-checkbox {
+    transform: scale(1.5);
 }

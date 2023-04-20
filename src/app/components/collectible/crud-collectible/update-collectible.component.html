@@ -1,4 +1,4 @@
-<div class="submit-form">
+<div [formGroup]="collectibleForm" class="submit-form">
 
     <div *ngIf="submitted">
         <h1>{{message}}</h1>
@@ -14,40 +14,45 @@
         <h1>Add collectible</h1>
     </div>
 
-    <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" [(ngModel)]="currentCollectible.name" name="name"/>
+    <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput id="name" formControlName="name" required/>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Subcategory</mat-label>
+        <mat-select formControlName="subcategory" id="subcategory">
+            <mat-option *ngFor="let subcat of currentCategory?.subcategories" [value]="subcat">{{subcat.subcategory}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div formArrayName="triples">
+        <mat-form-field *ngFor="let triple of triplesFormArray().controls; let i = index" [formGroupName]="i">
+            <mat-label>{{triple.value.question.question}}</mat-label>
+            <input matInput id="{{'triple'+i}}" formControlName="value"/>
+        </mat-form-field>
     </div>
 
-    <div class="form-group">
-        <label for="subcategory">Type</label>
-        <select [(ngModel)]="currentCollectible.subcategory" class="form-control" id="subcategory" name="subcategory">
-            <option *ngFor="let subcat of currentCategory?.subcategories" [ngValue]="subcat">{{subcat.subcategory}}</option>
-        </select>
-
-    </div>
-
-    <div class="form-group" *ngFor="let triple of currentCollectible.triples; let i = index">
-        <label for="{{'triple'+i}}">{{triple.question.question}}</label>
-        <input type="text" class="form-control" id="{{'triple'+i}}" [(ngModel)]="triple.value" name="{{'triple'+i}}"/>
-    </div>
-
-
-    <table class="table table-borderless" formArrayName="images">
+    <table class="table table-borderless no-spacing" formArrayName="images">
         <tr>
-            <th>Images</th>
+            <th><h2>Images</h2></th>
             <th>
-                <button (click)="addNewImage()" class="badge badge-info">Add image url</button>
+                <button (click)="addNewImage()" class="btn btn-info">Add image url</button>
             </th>
         </tr>
-        <tr *ngFor="let imageLink of currentCollectible.images; let i = index">
-            <td><input type="text" class="form-control" name="{{'image'+i}}" id="{{'image'+i}}"
-                       [(ngModel)]="imageLink.url"/></td>
-            <td>
-                <button class="badge badge-danger" (click)="removeImage(i)">Delete</button>
+        <tr *ngFor="let imageLink of imagesFormArray().controls; let i = index" [formGroupName]="i">
+            <td class="pt-0">
+                <mat-form-field class="list-input">
+                    <mat-label>url</mat-label>
+                    <input matInput id="{{'imageLink'+i}}" formControlName="url"/>
+                </mat-form-field>
+            <td class="pt-0">
+                <button mat-icon-button color="warn" class="delete-button" (click)="removeImage(i)">
+                    <mat-icon>delete</mat-icon>
+                </button>
             </td>
         </tr>
     </table>
 
-    <button (click)="saveCollectible()" class="btn btn-success">Submit</button>
+    <button (click)="saveCollectible()" [disabled]="collectibleForm.invalid" class="btn btn-success">Save</button>
 </div>

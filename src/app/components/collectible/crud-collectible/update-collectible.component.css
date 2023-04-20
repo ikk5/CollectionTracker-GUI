@@ -1,8 +1,24 @@
 .submit-form {
-    max-width: 400px;
+    max-width: 50%;
     margin: auto;
 }
 
 button {
     margin: 2px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+mat-checkbox {
+    transform: scale(1.5);
+}
+
+.delete-button {
+    transform: scale(1.25);
+}
+
+.list-input {
+    margin-bottom: -1.25em;
 }

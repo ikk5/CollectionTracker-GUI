@@ -3,13 +3,13 @@
     <div *ngIf="message">
         <h1>{{message}}</h1>
     </div>
-    <div class="col-md-6" *ngIf="currentCollectible.images != undefined && currentCollectible.images.length>0">
+    <div class="col-md-8" *ngIf="currentCollectible.images != undefined && currentCollectible.images.length>0">
         <a href="{{img.url}}" *ngFor="let img of currentCollectible.images" target="_blank">
             <img src="{{img.url}}" alt="{{img.url}} niet gevonden"/>
         </a>
     </div>
-    <div class="col-md-2" *ngIf="!currentCollectible.images || currentCollectible.images.length<1"></div>
-    <div class="col-md-6">
+    <div class="col-md-4" *ngIf="!currentCollectible.images || currentCollectible.images.length<1"></div>
+    <div class="col-md-4">
         <div id="collectible-header">
             <h1>{{currentCollectible.name}}</h1>
             <div class="header-buttons" *ngIf="ownerIsLoggedIn">

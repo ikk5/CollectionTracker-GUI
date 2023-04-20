@@ -1,87 +1,96 @@
-<div>
-    <div class="submit-form">
+<div [formGroup]="categoryForm" class="submit-form">
 
-        <div *ngIf="submitted">
-            <h1>{{message}}</h1>
-            <button class="btn btn-success" (click)="newCategory()">Add another</button>
-            <br/>
-        </div>
-
-        <div *ngIf="currentCategory.id">
-            <h1>Update category</h1>
-        </div>
-        <div *ngIf="!currentCategory.id">
-            <h1>Add category</h1>
-        </div>
-
-        <form>
-            <div class="form-group">
-                <label for="name"><strong>Name</strong></label>
-                <input type="text" class="form-control" id="name" [(ngModel)]="currentCategory.name" name="name"/>
-            </div>
-
-            <table class="table table-borderless" formArrayName="subcategories">
-                <tr>
-                    <th>Subcategories</th>
-                    <th>
-                        <button (click)="addNewSubcategory()" class="badge badge-info">Add subcategory</button>
-                    </th>
-                </tr>
-                <tr *ngFor="let subcategory of currentCategory.subcategories; let i = index">
-                    <td><input type="text" class="form-control" name="{{'subcategories'+i}}" id="{{'subcategories'+i}}"
-                               [(ngModel)]="subcategory.subcategory"/></td>
-                    <td>
-                        <button class="badge badge-danger" (click)="removeSubcategory(i)">Delete</button>
-                    </td>
-                </tr>
-                </table>
-
-                <table class="table table-borderless" formArrayName="questions">
-                    <tr>
-                        <th>Questions</th>
-                        <th>
-                            <button (click)="addNewQuestion()" class="badge badge-info">Add question</button>
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>Question</td>
-                        <td>Datatype</td>
-                        <td>Default value</td>
-                        <td>Show on list</td>
-                        <td>Hidden</td>
-                    </tr>
-                    <tr *ngFor="let question of currentCategory.questions; let i = index">
-                        <td>
-                            <input type="text" class="form-control" name="{{'question'+i}}" id="{{'question'+i}}"
-                                   [(ngModel)]="question.question"/>
-                        </td>
-                        <td>
-                            <select [(ngModel)]="question.datatype" class="form-control" id="{{'datatype'+i}}" name="{{'datatype'+i}}">
-                                <option *ngFor="let datatype of datatypes" [ngValue]="datatype">{{datatype}}</option>
-                            </select>
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" name="{{'defaultValue'+i}}" id="{{'defaultValue'+i}}"
-                                   [(ngModel)]="question.defaultValue"/>
-                        </td>
-                        <td>
-                            <input type="checkbox" class="form-control" name="{{'listColumn'+i}}" id="{{'listColumn'+i}}"
-                                   [(ngModel)]="question.listColumn"/>
-                        </td>
-                        <td>
-                            <input type="checkbox" class="form-control" name="{{'hidden'+i}}" id="{{'hidden'+i}}"
-                                   [(ngModel)]="question.hidden"/>
-                        </td>
-                        <td>
-                            <button class="badge badge-danger" (click)="removeQuestion(i)">Delete</button>
-                        </td>
-                    </tr>
-                </table>
-
-        </form>
-
-        <button (click)="saveCategory()" class="btn btn-success">Save</button>
-        <button *ngIf="currentCategory.id" class="btn btn-danger" style="margin: 2px" (click)="deleteCategory()">Delete</button>
-
+    <div *ngIf="submitted">
+        <h1>{{message}}</h1>
+        <br/>
     </div>
+
+    <div *ngIf="currentCategory.id">
+        <h1>Update category</h1>
+    </div>
+    <div *ngIf="!currentCategory.id">
+        <h1>Add category</h1>
+    </div>
+
+    <mat-form-field class="form-group">
+        <mat-label>Name</mat-label>
+        <input matInput id="name" formControlName="name" required/>
+    </mat-form-field>
+
+    <div formArrayName="subcategories">
+        <table class="table table-borderless">
+            <tr>
+                <th><h2>Subcategories</h2></th>
+                <th>
+                    <button class="btn btn-info" (click)="addNewSubcategory()">Add subcategory</button>
+                </th>
+            </tr>
+            <tr *ngFor="let subcategory of subcategoriesFormArray().controls; let i = index" [formGroupName]="i">
+                <td class="pt-0">
+                    <mat-form-field class="list-input">
+                        <mat-label>Subcategory</mat-label>
+                        <input matInput id="{{'subcategory'+i}}" formControlName="subcategory"/>
+                    </mat-form-field>
+                <td class="pt-0">
+                    <button mat-icon-button color="warn" style="transform: scale(1.25)" (click)="removeSubcategory(i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div formArrayName="questions">
+        <table class="table table-borderless">
+            <tr>
+                <th><h2>Questions</h2></th>
+                <th>
+                    <button class="btn btn-info" (click)="addNewQuestion()">Add question</button>
+                </th>
+            </tr>
+            <tr>
+                <td>Question</td>
+                <td>Datatype</td>
+                <td>Default value</td>
+                <td>Show on list</td>
+                <td>Hidden</td>
+            </tr>
+            <tr *ngFor="let question of questionsFormArray().controls; let i = index" [formGroupName]="i">
+                <td class="pt-0">
+                    <mat-form-field class="list-input">
+                        <mat-label>Question</mat-label>
+                        <input matInput id="{{'question'+i}}" formControlName="question"/>
+                    </mat-form-field>
+                </td>
+                <td class="pt-0">
+                    <mat-form-field class="list-input">
+                        <mat-label>Datatype</mat-label>
+                        <mat-select formControlName="datatype" id="{{'datatype'+i}}">
+                            <mat-option *ngFor="let datatype of datatypes" [value]="datatype">{{datatype}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+                <td class="pt-0">
+                    <mat-form-field class="list-input">
+                        <mat-label>Default value</mat-label>
+                        <input matInput id="{{'defaultValue'+i}}" formControlName="defaultValue"/>
+                    </mat-form-field>
+                </td>
+                <td class="pt-0">
+                    <mat-checkbox id="{{'listColumn'+i}}" formControlName="listColumn"/>
+                </td>
+                <td class="pt-0">
+                    <mat-checkbox id="{{'hidden'+i}}" formControlName="hidden"/>
+                </td>
+                <td class="pt-0">
+                    <button mat-icon-button color="warn" style="transform: scale(1.25)" (click)="removeQuestion(i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <button (click)="saveCategory()" [disabled]="categoryForm.invalid" class="btn btn-success">Save</button>
+    <button *ngIf="currentCategory.id" class="btn btn-danger" style="margin: 2px" (click)="deleteCategory()">Delete</button>
 </div>

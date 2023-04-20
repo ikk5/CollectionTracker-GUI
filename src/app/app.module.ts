@@ -1,16 +1,8 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from "@angular/common/http";
-
-import {MatSidenavModule} from "@angular/material/sidenav";
-import {MatDividerModule} from "@angular/material/divider";
-import {MatIconModule} from "@angular/material/icon";
-import {MatButtonModule} from "@angular/material/button";
-import {MatToolbarModule} from "@angular/material/toolbar";
-import {MatTableModule} from "@angular/material/table";
-import {MatSortModule} from "@angular/material/sort";
 
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
@@ -25,6 +17,7 @@ import {RegisterComponent} from "./components/user/register.component";
 import {ProfileComponent} from "./components/user/profile.component";
 import {HomeComponent} from "./components/home.component";
 import {CollectionOverviewComponent} from "./components/collectible/collection/collection-overview.component";
+import {AngularMaterialModule} from "./material.module";
 
 
 @NgModule({
@@ -46,14 +39,9 @@ import {CollectionOverviewComponent} from "./components/collectible/collection/c
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDividerModule,
-    MatTableModule,
-    MatSortModule,
-    BrowserAnimationsModule
+    AngularMaterialModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
