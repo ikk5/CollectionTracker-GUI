@@ -1,11 +1,8 @@
-<div>
-    <div class="submit-form">
-        <h1>What are we adding?</h1>
-        <ul class="list-group">
-            <li class="list-group-item" *ngFor="let cat of categories"
-                (click)="chooseCategory(cat)">
-                {{ cat.name }}
-            </li>
-        </ul>
-    </div>
+<div class="submit-form">
+    <h1>What are we adding?</h1>
+    <mat-nav-list class="list-group">
+        <mat-list-item *ngFor="let cat of categories" class="list-group-item" (click)="chooseCategory(cat)">
+            {{ cat.name }}
+        </mat-list-item>
+    </mat-nav-list>
 </div>

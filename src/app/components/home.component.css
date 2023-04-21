@@ -1,0 +1,8 @@
+.home {
+    max-width: 40%;
+    margin: auto;
+}
+
+mat-list-item {
+    background-color: white;
+}

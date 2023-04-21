@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../services/user.service";
+import {StorageService} from "../services/storage.service";
 
 @Component({
     selector: 'app-home',
@@ -8,14 +9,21 @@ import {UserService} from "../services/user.service";
 })
 export class HomeComponent implements OnInit {
     content?: string;
+    users: string[] = [];
+    isLoggedIn: boolean = false;
+    username?: string;
 
-    constructor(private userService: UserService) {
+    constructor(private userService: UserService,
+                private storageService: StorageService) {
     }
 
     ngOnInit(): void {
-        this.userService.getPublicContent().subscribe({
+        this.isLoggedIn = this.storageService.isLoggedIn();
+        this.username = this.storageService.getUser().username;
+
+        this.userService.getUsers().subscribe({
             next: data => {
-                this.content = data;
+                this.users = data;
             },
             error: err => {
                 console.log(err)
