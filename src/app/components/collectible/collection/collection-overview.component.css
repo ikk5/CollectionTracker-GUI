@@ -2,3 +2,8 @@
     max-width: 400px;
     margin: auto;
 }
+
+.list-group-item:hover {
+    filter: brightness(90%);
+    cursor: pointer;
+}
