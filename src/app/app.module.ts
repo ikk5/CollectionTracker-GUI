@@ -18,6 +18,7 @@ import {ProfileComponent} from "./components/user/profile.component";
 import {HomeComponent} from "./components/home.component";
 import {CollectionOverviewComponent} from "./components/collectible/collection/collection-overview.component";
 import {AngularMaterialModule} from "./material.module";
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import {AngularMaterialModule} from "./material.module";
     HttpClientModule,
     AngularMaterialModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DragDropModule
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

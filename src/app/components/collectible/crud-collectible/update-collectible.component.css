@@ -22,3 +22,13 @@ mat-checkbox {
 .list-input {
     margin-bottom: -1.25em;
 }
+
+.dragdrop-placeholder {
+    background: #ccc;
+    border: dotted 2px;
+}
+
+.drag-handle {
+    margin-top: 0.75em;
+    cursor: move;
+}

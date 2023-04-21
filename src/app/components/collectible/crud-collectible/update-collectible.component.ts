@@ -8,6 +8,7 @@ import {ImageLink} from "../../../models/image.model";
 import {Triple} from "../../../models/triple.model";
 import {AppComponent} from "../../../app.component";
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'app-update-collectible',
@@ -149,10 +150,13 @@ export class UpdateCollectibleComponent implements OnInit {
         }
 
         this.currentCollectible.images = [];
+        let counter = 1;
         for (const imageFormModel of collectibleFormModel.images) {
             let image: ImageLink = new ImageLink();
             image.url = imageFormModel.url;
+            image.displayOrder = counter;
             this.currentCollectible.images.push(image);
+            counter++;
         }
     }
 
@@ -214,5 +218,10 @@ export class UpdateCollectibleComponent implements OnInit {
 
     removeImage(index: number) {
         this.imagesFormArray().removeAt(index);
+    }
+
+    drop(event: CdkDragDrop<string[]>) {
+        moveItemInArray(this.imagesFormArray().controls, event.previousIndex, event.currentIndex);
+        moveItemInArray(this.collectibleForm.value.images, event.previousIndex, event.currentIndex);
     }
 }
