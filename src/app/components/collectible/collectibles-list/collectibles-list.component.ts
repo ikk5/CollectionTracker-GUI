@@ -84,15 +84,21 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
     }
 
     initTableData() {
-        this.displayedColumns = [];
+        this.displayedColumns = ['Name'];
         let data: Map<string, string>[] = [];
+        let filterColumns: string[] = ['Name'];
 
-        this.displayedColumns.push('Name');
-        this.displayedColumns.push('Subcategory');
+        if (this.category) {
+            this.displayedColumns.push('Subcategory');
+            filterColumns.push('Subcategory');
+        }
 
         for (let question of (this.collectibles?.questions ? this.collectibles.questions : [])) {
             if (question.listColumn && (!question.hidden || (question.hidden && this.showHidden))) {
                 this.displayedColumns.push(question.question);
+                if (question.filterColumn) {
+                    filterColumns.push(question.question);
+                }
             }
         }
         console.log(this.displayedColumns);
@@ -116,7 +122,7 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
 
         // Init table filters
         this.filterSelectObj = [];
-        for (let column of this.displayedColumns) {
+        for (let column of filterColumns) {
             if (column !== 'Name') {
                 this.filterSelectObj.push(
                     {

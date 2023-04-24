@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {CategoryService} from "../../../services/category.service";
 import {Location} from "@angular/common";
 import {StorageService} from "../../../services/storage.service";
+import {AppComponent} from "../../../app.component";
 
 @Component({
     selector: 'app-collectible-details',
@@ -31,7 +32,8 @@ export class CollectibleDetailsComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private location: Location,
-        private storageService: StorageService) {
+        private storageService: StorageService,
+        private appComponent: AppComponent) {
     }
 
     ngOnInit(): void {
@@ -50,6 +52,7 @@ export class CollectibleDetailsComponent implements OnInit {
             .subscribe({
                 next: (res) => {
                     console.log(res);
+                    this.appComponent.retrieveCategories();
                     this.location.back();
                 },
                 error: (e) => console.error(e)

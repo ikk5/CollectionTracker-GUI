@@ -84,7 +84,8 @@ export class UpdateCategoryComponent implements OnInit {
             datatype: [question.datatype],
             defaultValue: [question.defaultValue],
             hidden: [question.hidden],
-            listColumn: [question.listColumn]
+            listColumn: [question.listColumn],
+            filterColumn: [question.filterColumn]
         });
     }
 
@@ -220,6 +221,7 @@ export class UpdateCategoryComponent implements OnInit {
             question.defaultValue = questionFormModel.defaultValue;
             question.hidden = questionFormModel.hidden;
             question.listColumn = questionFormModel.listColumn;
+            question.filterColumn = questionFormModel.filterColumn;
             question.displayOrder = counter;
             this.currentCategory.questions.push(question);
             counter++;

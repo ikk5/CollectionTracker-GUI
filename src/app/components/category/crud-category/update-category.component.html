@@ -56,9 +56,10 @@
                 </div>
                 <h3 class="col-md-3">Question</h3>
                 <h3 class="col-md-2">Datatype</h3>
-                <h3 class="col-md-3">Default value</h3>
+                <h3 class="col-md-2">Default value</h3>
                 <h3 class="col-md-1">Show on list</h3>
-                <h3 class="col-md-1">Hidden</h3>
+                <h3 class="col-md-1" matTooltip="Check if you want to be able to filter this question on the list view.">Filterable</h3>
+                <h3 class="col-md-1" matTooltip="Check if you want to hide this question from other users.">Hidden</h3>
             </div>
 
             <div *ngFor="let question of questionsFormArray().controls; let i = index" [formGroupName]="i" class="row" cdkDrag>
@@ -76,11 +77,12 @@
                         <mat-option *ngFor="let datatype of datatypes" [value]="datatype">{{datatype}}</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-form-field class="col-md-3">
+                <mat-form-field class="col-md-2">
                     <mat-label>Default value</mat-label>
                     <input matInput id="{{'defaultValue'+i}}" formControlName="defaultValue"/>
                 </mat-form-field>
                 <mat-checkbox id="{{'listColumn'+i}}" formControlName="listColumn" class="col-md-1"/>
+                <mat-checkbox id="{{'filterColumn'+i}}" formControlName="filterColumn" class="col-md-1"/>
                 <mat-checkbox id="{{'hidden'+i}}" formControlName="hidden" class="col-md-1"/>
                 <button mat-icon-button color="warn" style="transform: scale(1.25);" (click)="removeQuestion(i)" class="col-md-1">
                     <mat-icon>delete</mat-icon>
