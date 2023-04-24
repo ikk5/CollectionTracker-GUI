@@ -6,6 +6,7 @@ import {Subcategory} from "../../../models/subcategory.model";
 import {CollectiblesList} from "../../../models/collectiblesList.model";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
+import {StorageService} from "../../../services/storage.service";
 
 @Component({
     selector: 'app-collectibles-list',
@@ -21,13 +22,15 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
     filterSelectObj: any[] = [];
     filterValues: any = {};
     searchValue: string = '';
+    showHidden: boolean = false;
 
     collectibles?: CollectiblesList;
     category?: Category;
     subcategory?: Subcategory;
 
     constructor(private collectibleService: CollectibleService,
-                private router: Router) {
+                private router: Router,
+                private storageService: StorageService) {
         this.category = history.state.category;
         this.subcategory = history.state.subcategory;
         router.routeReuseStrategy.shouldReuseRoute = function () { // TODO: deprecated; find alternative
@@ -36,6 +39,12 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {
+        if (this.subcategory) {
+            this.showHidden = this.subcategory?.username == this.storageService.getUser().username;
+        } else if (this.category?.subcategories) {
+            this.showHidden = this.category.subcategories[0].username == this.storageService.getUser().username;
+        }
+
         this.retrieveCollectibles();
 
         this.tabledata.filterPredicate = this.createFilter();
@@ -82,7 +91,7 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
         this.displayedColumns.push('Subcategory');
 
         for (let question of (this.collectibles?.questions ? this.collectibles.questions : [])) {
-            if (question.listColumn) { // TODO: hidden check
+            if (question.listColumn && (!question.hidden || (question.hidden && this.showHidden))) {
                 this.displayedColumns.push(question.question);
             }
         }

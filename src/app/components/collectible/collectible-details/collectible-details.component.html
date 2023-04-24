@@ -27,7 +27,9 @@
         </div>
 
         <div *ngFor="let triple of currentCollectible.triples">
-            <label><strong>{{triple.question.question}}:</strong></label> {{ triple.value}}
+            <div *ngIf="ownerIsLoggedIn ||!triple.question.hidden">
+                <label><strong>{{triple.question.question}}:</strong></label> {{ triple.value}}
+            </div>
         </div>
     </div>
 </div>
