@@ -7,6 +7,7 @@ import {Question} from "../../../models/question.model";
 import {AppComponent} from "../../../app.component";
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {StorageService} from "../../../services/storage.service";
+import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 
 @Component({
     selector: 'app-update-category',
@@ -198,14 +199,18 @@ export class UpdateCategoryComponent implements OnInit {
         const catFormModel = this.categoryForm.value;
         this.currentCategory.name = catFormModel.name;
 
+        let counter = 1;
         this.currentCategory.subcategories = [];
         for (const subcatFormModel of catFormModel.subcategories) {
             let subcat: Subcategory = new Subcategory();
             subcat.subcategoryId = subcatFormModel.id;
             subcat.subcategory = subcatFormModel.subcategory;
+            subcat.displayOrder = counter;
             this.currentCategory.subcategories.push(subcat);
+            counter++;
         }
 
+        counter = 1;
         this.currentCategory.questions = [];
         for (const questionFormModel of catFormModel.questions) {
             let question: Question = new Question();
@@ -215,7 +220,19 @@ export class UpdateCategoryComponent implements OnInit {
             question.defaultValue = questionFormModel.defaultValue;
             question.hidden = questionFormModel.hidden;
             question.listColumn = questionFormModel.listColumn;
+            question.displayOrder = counter;
             this.currentCategory.questions.push(question);
+            counter++;
         }
+    }
+
+    dropSubcategory(event: CdkDragDrop<string[]>) {
+        moveItemInArray(this.subcategoriesFormArray().controls, event.previousIndex, event.currentIndex);
+        moveItemInArray(this.categoryForm.value.subcategories, event.previousIndex, event.currentIndex);
+    }
+
+    dropQuestion(event: CdkDragDrop<string[]>) {
+        moveItemInArray(this.questionsFormArray().controls, event.previousIndex, event.currentIndex);
+        moveItemInArray(this.categoryForm.value.questions, event.previousIndex, event.currentIndex);
     }
 }

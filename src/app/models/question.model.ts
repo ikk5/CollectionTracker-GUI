@@ -5,4 +5,5 @@ export class Question {
     defaultValue?: string;
     hidden: boolean = false;
     listColumn: boolean = false;
+    displayOrder?: number;
 }

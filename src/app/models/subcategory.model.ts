@@ -5,4 +5,5 @@ export class Subcategory {
     subcategory?: string;
     username?: string;
     collectibleCount: number = 0;
+    displayOrder?: number;
 }

@@ -17,78 +17,76 @@
         <input matInput id="name" formControlName="name" required/>
     </mat-form-field>
 
-    <div formArrayName="subcategories">
-        <table class="table table-borderless">
-            <tr>
-                <th><h2>Subcategories</h2></th>
-                <th>
-                    <button class="btn btn-info" (click)="addNewSubcategory()">Add subcategory</button>
-                </th>
-            </tr>
-            <tr *ngFor="let subcategory of subcategoriesFormArray().controls; let i = index" [formGroupName]="i">
-                <td class="pt-0">
-                    <mat-form-field class="list-input">
-                        <mat-label>Subcategory</mat-label>
-                        <input matInput id="{{'subcategory'+i}}" formControlName="subcategory"/>
-                    </mat-form-field>
-                <td class="pt-0">
-                    <button mat-icon-button color="warn" style="transform: scale(1.25)" (click)="removeSubcategory(i)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </td>
-            </tr>
-        </table>
+    <div cdkDropList (cdkDropListDropped)="dropSubcategory($event)" class="col-md-12">
+        <div formArrayName="subcategories">
+            <div class="row">
+                <h2 class="col-md-10">Subcategories</h2>
+                <button class="btn btn-info" style="margin: 0.5em;" (click)="addNewSubcategory()">Add subcategory</button>
+            </div>
+
+            <div *ngFor="let subcategory of subcategoriesFormArray().controls; let i = index" [formGroupName]="i" class="row" cdkDrag>
+                <div>
+                    <div class="dragdrop-placeholder" *cdkDragPlaceholder></div>
+                    <mat-icon class="drag-handle" cdkDragHandle>drag_indicator</mat-icon>
+                </div>
+
+                <mat-form-field class="col-md-10">
+                    <mat-label>Subcategory</mat-label>
+                    <input matInput id="{{'subcategory'+i}}" formControlName="subcategory"/>
+                </mat-form-field>
+                <button mat-icon-button color="warn" style="transform: scale(1.25)" (click)="removeSubcategory(i)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </div>
     </div>
 
-    <div formArrayName="questions">
-        <table class="table table-borderless">
-            <tr>
-                <th><h2>Questions</h2></th>
-                <th>
-                    <button class="btn btn-info" (click)="addNewQuestion()">Add question</button>
-                </th>
-            </tr>
-            <tr>
-                <td>Question</td>
-                <td>Datatype</td>
-                <td>Default value</td>
-                <td>Show on list</td>
-                <td>Hidden</td>
-            </tr>
-            <tr *ngFor="let question of questionsFormArray().controls; let i = index" [formGroupName]="i">
-                <td class="pt-0">
-                    <mat-form-field class="list-input">
-                        <mat-label>Question</mat-label>
-                        <input matInput id="{{'question'+i}}" formControlName="question"/>
-                    </mat-form-field>
-                </td>
-                <td class="pt-0">
-                    <mat-form-field class="list-input">
-                        <mat-label>Datatype</mat-label>
-                        <mat-select formControlName="datatype" id="{{'datatype'+i}}">
-                            <mat-option *ngFor="let datatype of datatypes" [value]="datatype">{{datatype}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </td>
-                <td class="pt-0">
-                    <mat-form-field class="list-input">
-                        <mat-label>Default value</mat-label>
-                        <input matInput id="{{'defaultValue'+i}}" formControlName="defaultValue"/>
-                    </mat-form-field>
-                </td>
-                <td class="pt-0">
-                    <mat-checkbox id="{{'listColumn'+i}}" formControlName="listColumn"/>
-                </td>
-                <td class="pt-0">
-                    <mat-checkbox id="{{'hidden'+i}}" formControlName="hidden"/>
-                </td>
-                <td class="pt-0">
-                    <button mat-icon-button color="warn" style="transform: scale(1.25)" (click)="removeQuestion(i)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </td>
-            </tr>
-        </table>
+    <br/>
+
+    <div cdkDropList (cdkDropListDropped)="dropQuestion($event)" class="col-md-12">
+        <div formArrayName="questions">
+            <div class="row">
+                <h2 class="col-md-10">Questions</h2>
+                <button class="btn btn-info" style="margin: 0.5em;" (click)="addNewQuestion()">Add question</button>
+            </div>
+
+            <div class="row">
+                <div style="visibility: hidden">
+                    <mat-icon class="drag-handle">drag_indicator</mat-icon>
+                </div>
+                <h3 class="col-md-3">Question</h3>
+                <h3 class="col-md-2">Datatype</h3>
+                <h3 class="col-md-3">Default value</h3>
+                <h3 class="col-md-1">Show on list</h3>
+                <h3 class="col-md-1">Hidden</h3>
+            </div>
+
+            <div *ngFor="let question of questionsFormArray().controls; let i = index" [formGroupName]="i" class="row" cdkDrag>
+                <div>
+                    <div class="dragdrop-placeholder" *cdkDragPlaceholder></div>
+                    <mat-icon class="drag-handle" cdkDragHandle>drag_indicator</mat-icon>
+                </div>
+                <mat-form-field class="col-md-3">
+                    <mat-label>Question</mat-label>
+                    <input matInput id="{{'question'+i}}" formControlName="question"/>
+                </mat-form-field>
+                <mat-form-field class="col-md-2">
+                    <mat-label>Datatype</mat-label>
+                    <mat-select formControlName="datatype" id="{{'datatype'+i}}">
+                        <mat-option *ngFor="let datatype of datatypes" [value]="datatype">{{datatype}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-md-3">
+                    <mat-label>Default value</mat-label>
+                    <input matInput id="{{'defaultValue'+i}}" formControlName="defaultValue"/>
+                </mat-form-field>
+                <mat-checkbox id="{{'listColumn'+i}}" formControlName="listColumn" class="col-md-1"/>
+                <mat-checkbox id="{{'hidden'+i}}" formControlName="hidden" class="col-md-1"/>
+                <button mat-icon-button color="warn" style="transform: scale(1.25);" (click)="removeQuestion(i)" class="col-md-1">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </div>
     </div>
 
     <button (click)="saveCategory()" [disabled]="categoryForm.invalid" class="btn btn-success">Save</button>

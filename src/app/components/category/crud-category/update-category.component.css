@@ -7,10 +7,17 @@ mat-form-field {
     width: 100%;
 }
 
-.list-input {
-    margin-bottom: -1.25em;
+mat-checkbox {
+    margin-top: 0.75em;
+    transform: scale(1.5);
 }
 
-mat-checkbox {
-    transform: scale(1.5);
+.dragdrop-placeholder {
+    background: #ccc;
+    border: dotted 2px;
+}
+
+.drag-handle {
+    margin-top: 0.75em;
+    cursor: move;
 }

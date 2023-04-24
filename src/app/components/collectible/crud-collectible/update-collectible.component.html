@@ -39,8 +39,8 @@
                 <h2 class="col-md-10">Images</h2>
                 <button (click)="addNewImage()" class="btn btn-info">Add image url</button>
             </div>
-            <div *ngFor="let imageLink of imagesFormArray().controls; let i = index" [formGroupName]="i" class="row" cdkDrag>
 
+            <div *ngFor="let imageLink of imagesFormArray().controls; let i = index" [formGroupName]="i" class="row" cdkDrag>
                 <div>
                     <div class="dragdrop-placeholder" *cdkDragPlaceholder></div>
                     <mat-icon class="drag-handle" cdkDragHandle>drag_indicator</mat-icon>
