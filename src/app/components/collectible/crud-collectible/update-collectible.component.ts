@@ -9,6 +9,7 @@ import {Triple} from "../../../models/triple.model";
 import {AppComponent} from "../../../app.component";
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'app-update-collectible',
@@ -32,7 +33,8 @@ export class UpdateCollectibleComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private appComponent: AppComponent,
-        private formbuilder: FormBuilder) {
+        private formbuilder: FormBuilder,
+        private datePipe: DatePipe) {
         this.currentCollectible = history.state.collectible;
         this.currentCategory = history.state.category;
     }
@@ -73,10 +75,16 @@ export class UpdateCollectibleComponent implements OnInit {
     }
 
     buildTripleForm(triple: Triple): FormGroup {
+        let tripleValue: any = triple.value;
+        if (triple.question.datatype === 'Date' && triple.value) {
+            // In case of datatype Date we need to format the date string to an actual date, otherwise the datepicker breaks.
+            const [day, month, year] = tripleValue.split('-');
+            tripleValue = new Date(+year, +month - 1, +day);
+        }
         return this.formbuilder.group({
             id: [triple.id],
             question: [triple.question],
-            value: [triple.value]
+            value: [tripleValue]
         })
     }
 
@@ -145,7 +153,12 @@ export class UpdateCollectibleComponent implements OnInit {
         for (const tripleFormModel of collectibleFormModel.triples) {
             let triple: Triple = new Triple(tripleFormModel.question);
             triple.id = tripleFormModel.id;
-            triple.value = tripleFormModel.value;
+            if (triple.question.datatype === 'Date') {
+                // Format the date to a string without time.
+                triple.value = this.datePipe.transform(tripleFormModel.value, 'dd-MM-yyyy')!;
+            } else {
+                triple.value = tripleFormModel.value;
+            }
             this.currentCollectible.triples.push(triple);
         }
 
@@ -223,5 +236,14 @@ export class UpdateCollectibleComponent implements OnInit {
     drop(event: CdkDragDrop<string[]>) {
         moveItemInArray(this.imagesFormArray().controls, event.previousIndex, event.currentIndex);
         moveItemInArray(this.collectibleForm.value.images, event.previousIndex, event.currentIndex);
+    }
+
+    showDatatypeSpecificInput(questiondatatype: string, datatype: string): boolean {
+        const implemented: string[] = ['Text', 'Checkbox', 'Date'];
+        if (!implemented.includes(questiondatatype)) {
+            return datatype == 'Text';
+        } else {
+            return questiondatatype == datatype;
+        }
     }
 }

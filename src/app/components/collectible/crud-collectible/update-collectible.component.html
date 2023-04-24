@@ -27,10 +27,23 @@
     </mat-form-field>
 
     <div formArrayName="triples">
-        <mat-form-field *ngFor="let triple of triplesFormArray().controls; let i = index" [formGroupName]="i">
-            <mat-label>{{triple.value.question.question}}</mat-label>
-            <input matInput id="{{'triple'+i}}" formControlName="value"/>
-        </mat-form-field>
+        <div *ngFor="let triple of triplesFormArray().controls; let i = index" [formGroupName]="i">
+            <div *ngIf="showDatatypeSpecificInput(triple.value.question.datatype,'Checkbox')">
+                <mat-label>{{triple.value.question.question}}:</mat-label>
+                <mat-checkbox id="{{'tripleCheckbox'+i}}" formControlName="value"/>
+            </div>
+            <mat-form-field *ngIf="showDatatypeSpecificInput(triple.value.question.datatype,'Date')">
+                <mat-label>{{triple.value.question.question}}</mat-label>
+                <input matInput [matDatepicker]="dp" id="{{'tripleDate'+i}}" formControlName="value"/>
+                <mat-hint>DD-MM-YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+                <mat-datepicker #dp></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field *ngIf="showDatatypeSpecificInput(triple.value.question.datatype,'Text')">
+                <mat-label>{{triple.value.question.question}}</mat-label>
+                <input matInput id="{{'tripleText'+i}}" formControlName="value"/>
+            </mat-form-field>
+        </div>
     </div>
 
     <div cdkDropList (cdkDropListDropped)="drop($event)">

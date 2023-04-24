@@ -19,6 +19,9 @@ import {HomeComponent} from "./components/home.component";
 import {CollectionOverviewComponent} from "./components/collectible/collection/collection-overview.component";
 import {AngularMaterialModule} from "./material.module";
 import {DragDropModule} from "@angular/cdk/drag-drop";
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DatePipe} from "@angular/common";
 
 
 @NgModule({
@@ -45,7 +48,24 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
     ReactiveFormsModule,
     DragDropModule
   ],
-  providers: [httpInterceptorProviders],
+  providers: [httpInterceptorProviders,
+    DatePipe,
+    {provide: MAT_DATE_LOCALE, useValue: 'nl-NL'},
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {
+      provide: MAT_DATE_FORMATS, useValue: {
+        parse: {dateInput: 'DD-MM-YYYY'},
+        display: {
+          dateInput: 'DD-MM-YYYY',
+          monthYearLabel: 'MM-YYYY',
+          dateA11yLabel: 'LL',
+          monthYearA11yLabel: 'MM-YYYY'
+        }
+      }
+    }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule {
+}

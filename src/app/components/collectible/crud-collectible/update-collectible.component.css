@@ -13,6 +13,7 @@ mat-form-field {
 
 mat-checkbox {
     transform: scale(1.5);
+    margin-bottom: 1em;
 }
 
 .delete-button {
