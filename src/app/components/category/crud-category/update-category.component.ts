@@ -78,15 +78,28 @@ export class UpdateCategoryComponent implements OnInit {
     }
 
     buildQuestionForm(question: Question): FormGroup {
-        return this.formbuilder.group({
+        const questionsForm = this.formbuilder.group({
             id: [question.id],
             question: [question.question],
             datatype: [question.datatype],
             defaultValue: [question.defaultValue],
             hidden: [question.hidden],
             listColumn: [question.listColumn],
-            filterColumn: [question.filterColumn]
+            filterColumn: [question.filterColumn],
+            dropdownOptions: this.formbuilder.array([])
         });
+
+        if (question.dropdownOptions) {
+            question.dropdownOptions.split(';').forEach(option => {
+                const optionForm = this.buildDropdownForm(option);
+                (questionsForm.get('dropdownOptions') as FormArray).push(optionForm);
+            });
+        } else {
+            const optionForm = this.buildDropdownForm('');
+            (questionsForm.get('dropdownOptions') as FormArray).push(optionForm);
+        }
+
+        return questionsForm;
     }
 
     subcategoriesFormArray(): FormArray {
@@ -95,6 +108,16 @@ export class UpdateCategoryComponent implements OnInit {
 
     questionsFormArray(): FormArray {
         return this.categoryForm.get('questions') as FormArray;
+    }
+
+    getDropdownOptionsFormArray(index: number): FormArray {
+        return this.questionsFormArray().controls[index].get('dropdownOptions') as FormArray;
+    }
+
+    buildDropdownForm(option: string): FormGroup {
+        return this.formbuilder.group({
+            option: [option]
+        });
     }
 
     saveCategory(): void {
@@ -183,6 +206,14 @@ export class UpdateCategoryComponent implements OnInit {
         this.questionsFormArray().removeAt(index);
     }
 
+    removeDropdownOption(questionIndex: number, optionIndex: number) {
+        this.getDropdownOptionsFormArray(questionIndex).removeAt(optionIndex);
+    }
+
+    addDropdownOption(questionIndex: number) {
+        this.getDropdownOptionsFormArray(questionIndex).push(this.buildDropdownForm(''));
+    }
+
     deleteCategory(): void {
         this.categoryService.delete(this.currentCategory.id)
             .subscribe({
@@ -223,6 +254,14 @@ export class UpdateCategoryComponent implements OnInit {
             question.listColumn = questionFormModel.listColumn;
             question.filterColumn = questionFormModel.filterColumn;
             question.displayOrder = counter;
+
+            let dropdownOptions: string[] = [];
+            for (const optionFormModel of questionFormModel.dropdownOptions) {
+                if (optionFormModel.option && optionFormModel.option != '') {
+                    dropdownOptions.push(optionFormModel.option);
+                }
+            }
+            question.dropdownOptions = dropdownOptions.join(';');
             this.currentCategory.questions.push(question);
             counter++;
         }
@@ -236,5 +275,10 @@ export class UpdateCategoryComponent implements OnInit {
     dropQuestion(event: CdkDragDrop<string[]>) {
         moveItemInArray(this.questionsFormArray().controls, event.previousIndex, event.currentIndex);
         moveItemInArray(this.categoryForm.value.questions, event.previousIndex, event.currentIndex);
+    }
+
+    dropDropdownOption(event: CdkDragDrop<string[]>, index: number) {
+        moveItemInArray(this.getDropdownOptionsFormArray(index).controls, event.previousIndex, event.currentIndex);
+        moveItemInArray(this.categoryForm.value.questions[index].dropdownOptions, event.previousIndex, event.currentIndex);
     }
 }

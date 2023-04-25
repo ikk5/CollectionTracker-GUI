@@ -239,7 +239,7 @@ export class UpdateCollectibleComponent implements OnInit {
     }
 
     showDatatypeSpecificInput(questiondatatype: string, datatype: string): boolean {
-        const implemented: string[] = ['Text', 'Checkbox', 'Date'];
+        const implemented: string[] = ['Text', 'Checkbox', 'Date', 'Dropdown'];
         if (!implemented.includes(questiondatatype)) {
             return datatype == 'Text';
         } else {

@@ -7,4 +7,5 @@ export class Question {
     listColumn: boolean = false;
     filterColumn: boolean = false;
     displayOrder?: number;
+    dropdownOptions?: string;
 }

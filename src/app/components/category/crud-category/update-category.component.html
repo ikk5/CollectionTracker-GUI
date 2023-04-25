@@ -43,14 +43,14 @@
 
     <br/>
 
-    <div cdkDropList (cdkDropListDropped)="dropQuestion($event)" class="col-md-12">
+    <div cdkDropList (cdkDropListDropped)="dropQuestion($event)">
         <div formArrayName="questions">
-            <div class="row">
+            <div class="row col-md-12">
                 <h2 class="col-md-10">Questions</h2>
                 <button class="btn btn-info" style="margin: 0.5em;" (click)="addNewQuestion()">Add question</button>
             </div>
 
-            <div class="row">
+            <div class="row col-md-12">
                 <div style="visibility: hidden">
                     <mat-icon class="drag-handle">drag_indicator</mat-icon>
                 </div>
@@ -63,30 +63,57 @@
             </div>
 
             <div *ngFor="let question of questionsFormArray().controls; let i = index" [formGroupName]="i" class="row" cdkDrag>
-                <div>
-                    <div class="dragdrop-placeholder" *cdkDragPlaceholder></div>
-                    <mat-icon class="drag-handle" cdkDragHandle>drag_indicator</mat-icon>
+                <div class="row col-md-12">
+                    <div>
+                        <div class="dragdrop-placeholder" *cdkDragPlaceholder></div>
+                        <mat-icon class="drag-handle" cdkDragHandle>drag_indicator</mat-icon>
+                    </div>
+                    <mat-form-field class="col-md-3">
+                        <mat-label>Question</mat-label>
+                        <input matInput id="{{'question'+i}}" formControlName="question"/>
+                    </mat-form-field>
+                    <mat-form-field class="col-md-2">
+                        <mat-label>Datatype</mat-label>
+                        <mat-select formControlName="datatype" id="{{'datatype'+i}}">
+                            <mat-option *ngFor="let datatype of datatypes" [value]="datatype">{{datatype}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="col-md-2">
+                        <mat-label>Default value</mat-label>
+                        <input matInput id="{{'defaultValue'+i}}" formControlName="defaultValue"/>
+                    </mat-form-field>
+                    <mat-checkbox id="{{'listColumn'+i}}" formControlName="listColumn" class="col-md-1"/>
+                    <mat-checkbox id="{{'filterColumn'+i}}" formControlName="filterColumn" class="col-md-1"/>
+                    <mat-checkbox id="{{'hidden'+i}}" formControlName="hidden" class="col-md-1"/>
+                    <button mat-icon-button color="warn" style="transform: scale(1.25);" (click)="removeQuestion(i)" class="col-md-1">
+                        <mat-icon>delete</mat-icon>
+                    </button>
                 </div>
-                <mat-form-field class="col-md-3">
-                    <mat-label>Question</mat-label>
-                    <input matInput id="{{'question'+i}}" formControlName="question"/>
-                </mat-form-field>
-                <mat-form-field class="col-md-2">
-                    <mat-label>Datatype</mat-label>
-                    <mat-select formControlName="datatype" id="{{'datatype'+i}}">
-                        <mat-option *ngFor="let datatype of datatypes" [value]="datatype">{{datatype}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field class="col-md-2">
-                    <mat-label>Default value</mat-label>
-                    <input matInput id="{{'defaultValue'+i}}" formControlName="defaultValue"/>
-                </mat-form-field>
-                <mat-checkbox id="{{'listColumn'+i}}" formControlName="listColumn" class="col-md-1"/>
-                <mat-checkbox id="{{'filterColumn'+i}}" formControlName="filterColumn" class="col-md-1"/>
-                <mat-checkbox id="{{'hidden'+i}}" formControlName="hidden" class="col-md-1"/>
-                <button mat-icon-button color="warn" style="transform: scale(1.25);" (click)="removeQuestion(i)" class="col-md-1">
-                    <mat-icon>delete</mat-icon>
-                </button>
+
+                <div cdkDropList (cdkDropListDropped)="dropDropdownOption($event, i)" class="col-md-10">
+                    <div formArrayName="dropdownOptions" *ngIf="question.value.datatype == 'Dropdown'">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <button class="btn btn-info" style="margin: 0.5em" (click)="addDropdownOption(i)">Add dropdown option</button>
+                        </div>
+
+                        <div *ngFor="let dropdownOption of getDropdownOptionsFormArray(i).controls; let j = index" [formGroupName]="j"
+                             class="row col-md-10" cdkDrag>
+                            <div class="col-md-1"></div>
+                            <div>
+                                <div class="dragdrop-placeholder" *cdkDragPlaceholder></div>
+                                <mat-icon class="drag-handle" cdkDragHandle>drag_indicator</mat-icon>
+                            </div>
+                            <mat-form-field class="col-md-4">
+                                <mat-label>Dropdown option</mat-label>
+                                <input matInput id="{{'option'+i+'-'+j}}" formControlName="option"/>
+                            </mat-form-field>
+                            <button mat-icon-button color="warn" style="transform: scale(1.25);" (click)="removeDropdownOption(i, j)" class="col-md-1">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

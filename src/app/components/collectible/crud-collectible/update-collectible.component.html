@@ -28,10 +28,12 @@
 
     <div formArrayName="triples">
         <div *ngFor="let triple of triplesFormArray().controls; let i = index" [formGroupName]="i">
+
             <div *ngIf="showDatatypeSpecificInput(triple.value.question.datatype,'Checkbox')">
                 <mat-label>{{triple.value.question.question}}:</mat-label>
                 <mat-checkbox id="{{'tripleCheckbox'+i}}" formControlName="value"/>
             </div>
+
             <mat-form-field *ngIf="showDatatypeSpecificInput(triple.value.question.datatype,'Date')">
                 <mat-label>{{triple.value.question.question}}</mat-label>
                 <input matInput [matDatepicker]="dp" id="{{'tripleDate'+i}}" formControlName="value"/>
@@ -39,6 +41,14 @@
                 <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
                 <mat-datepicker #dp></mat-datepicker>
             </mat-form-field>
+
+            <mat-form-field *ngIf="showDatatypeSpecificInput(triple.value.question.datatype, 'Dropdown')">
+                <mat-label>{{triple.value.question.question}}</mat-label>
+                <mat-select formControlName="value" id="{{'tripleDropdown'+i}}">
+                    <mat-option *ngFor="let option of triple.value.question.dropdownOptions.split(';')" [value]="option">{{option}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
             <mat-form-field *ngIf="showDatatypeSpecificInput(triple.value.question.datatype,'Text')">
                 <mat-label>{{triple.value.question.question}}</mat-label>
                 <input matInput id="{{'tripleText'+i}}" formControlName="value"/>

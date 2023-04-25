@@ -28,7 +28,13 @@
 
         <div *ngFor="let triple of currentCollectible.triples">
             <div *ngIf="ownerIsLoggedIn ||!triple.question.hidden">
-                <label><strong>{{triple.question.question}}:</strong></label> {{ triple.value}}
+                <ng-container *ngIf="triple.question.datatype === 'URL' ; else other">
+                    <label><strong>{{triple.question.question}}:</strong></label>
+                    <a href="{{triple.value}}" target="_blank"> {{triple.value}}</a>
+                </ng-container>
+                <ng-template #other>
+                    <label><strong>{{triple.question.question}}:</strong></label> {{ triple.value}}
+                </ng-template>
             </div>
         </div>
     </div>
