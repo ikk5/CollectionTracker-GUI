@@ -4,18 +4,26 @@
         <h1>{{message}}</h1>
     </div>
     <div class="col-md-8" *ngIf="currentCollectible.images != undefined && currentCollectible.images.length>0">
-        <a href="{{img.url}}" *ngFor="let img of currentCollectible.images" target="_blank">
-            <img src="{{img.url}}" alt="{{img.url}} niet gevonden"/>
-        </a>
+        <div *ngIf="currentCollectible.images.length>1;else single">
+            <a href="{{img.url}}" *ngFor="let img of currentCollectible.images" target="_blank">
+                <img src="{{img.url}}" alt="{{img.url}} niet gevonden" class="multiple-images"/>
+            </a>
+        </div>
+        <ng-template #single>
+            <a href="{{currentCollectible.images[0].url}}" target="_blank">
+                <img src="{{currentCollectible.images[0].url}}" class="single-image"
+                     alt="{{currentCollectible.images[0].url}} niet gevonden"/>
+            </a>
+        </ng-template>
     </div>
     <div class="col-md-4" *ngIf="!currentCollectible.images || currentCollectible.images.length<1"></div>
     <div class="col-md-4">
+        <div class="header-buttons" *ngIf="ownerIsLoggedIn">
+            <button class="btn btn-warning" (click)="updateCollectible()">Update</button>
+            <button class="btn btn-danger" (click)="deleteCollectible()">Delete</button>
+        </div>
         <div id="collectible-header">
             <h1>{{currentCollectible.name}}</h1>
-            <div class="header-buttons" *ngIf="ownerIsLoggedIn">
-                <button class="btn btn-warning" (click)="updateCollectible()">Update</button>
-                <button class="btn btn-danger" (click)="deleteCollectible()">Delete</button>
-            </div>
         </div>
 
         <div>

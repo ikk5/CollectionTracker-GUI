@@ -23,6 +23,13 @@ button {
 }
 
 img {
-    max-width: 49%;
     padding: 2px;
+}
+
+.multiple-images {
+    max-width: 49%;
+}
+
+.single-image {
+    max-width: 98%;
 }
