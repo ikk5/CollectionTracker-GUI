@@ -7,6 +7,7 @@ import {CollectiblesList} from "../../../models/collectiblesList.model";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import {StorageService} from "../../../services/storage.service";
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
     selector: 'app-collectibles-list',
@@ -16,6 +17,7 @@ import {StorageService} from "../../../services/storage.service";
 export class CollectiblesListComponent implements OnInit, AfterViewInit {
 
     @ViewChild(MatSort) sort!: MatSort;
+    @ViewChild('paginator') paginator!: MatPaginator;
 
     displayedColumns?: string[];
     tabledata: MatTableDataSource<Map<string, string>> = new MatTableDataSource<Map<string, string>>();
@@ -46,12 +48,13 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
         }
 
         this.retrieveCollectibles();
-
-        this.tabledata.filterPredicate = this.createFilter();
     }
 
     ngAfterViewInit(): void {
         this.tabledata.sort = this.sort;
+        this.tabledata.paginator = this.paginator;
+        this.tabledata.filterPredicate = this.createFilter();
+
         this.tabledata.sortData = (data, sort) => {
             const isAsc = sort.direction === 'asc';
             return data.sort((a: Map<string, string>, b: Map<string, string>) => {
@@ -118,9 +121,12 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
             map.set('Subcategory', summary.subcategory);
             data.push(map);
         }
-        this.tabledata.data = data;
 
-        // Init table filters
+        this.initTableFilters(filterColumns, data);
+        this.tabledata.data = data;
+    }
+
+    initTableFilters(filterColumns: string[], data: Map<string, string>[]) {
         this.filterSelectObj = [];
         for (let column of filterColumns) {
             if (column !== 'Name') {
@@ -141,7 +147,11 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
 
     openCollectible(row: Map<string, string>) {
         console.log('clicked: ' + row.get('id'));
-        this.router.navigateByUrl('collectible', {state: {collectibleId: row.get('id')}});
+        const id = row.get('id');
+        // const url = this.router.serializeUrl(this.router.createUrlTree(['collectible/' + id]));
+        // window.open(url, '_blank');
+        window.open('collectible/' + id);
+        // this.router.navigateByUrl('collectible/'+id);
     }
 
     applyFilter(event: Event): void {
@@ -149,9 +159,9 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
         if (search.length > 1) {
             this.filterValues['Name'] = search;
             this.tabledata.filter = JSON.stringify(this.filterValues);
-            // if (this.tabledata.paginator) {
-            //     this.tabledata.paginator.firstPage();
-            // }
+            if (this.tabledata.paginator) {
+                this.tabledata.paginator.firstPage();
+            }
         }
     }
 
@@ -164,7 +174,7 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
             }
             return obj;
         });
-        return uniqChk;
+        return uniqChk.sort((a, b) => this.compare(a, b, true));
     }
 
     filterChange(filter: any, event: any) {

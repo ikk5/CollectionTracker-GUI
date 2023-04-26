@@ -4,10 +4,13 @@
     margin: auto;
 }
 
-.mat-mdc-table {
+.table-container {
+    width: 100%;
     border-collapse: separate;
     border-radius: 5px;
     overflow: hidden;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .mat-mdc-table .mat-mdc-row:hover {
