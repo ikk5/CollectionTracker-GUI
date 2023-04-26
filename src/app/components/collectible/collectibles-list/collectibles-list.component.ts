@@ -148,10 +148,7 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
     openCollectible(row: Map<string, string>) {
         console.log('clicked: ' + row.get('id'));
         const id = row.get('id');
-        // const url = this.router.serializeUrl(this.router.createUrlTree(['collectible/' + id]));
-        // window.open(url, '_blank');
         window.open('collectible/' + id);
-        // this.router.navigateByUrl('collectible/'+id);
     }
 
     applyFilter(event: Event): void {

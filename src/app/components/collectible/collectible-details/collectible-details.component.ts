@@ -21,7 +21,7 @@ export class CollectibleDetailsComponent implements OnInit {
         triples: []
     };
 
-    collectibleId?: number;
+    collectibleId?: string | null;
     message = '';
     ownerIsLoggedIn: boolean = false;
     username: string = '';
@@ -37,8 +37,10 @@ export class CollectibleDetailsComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.route.paramMap.subscribe((params) => {
+            this.collectibleId = params.get('id');
+        });
         this.username = this.storageService.getUser().username;
-        this.collectibleId = history.state.collectibleId;
         console.log(this.collectibleId);
         this.getCollectible();
     }

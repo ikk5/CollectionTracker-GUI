@@ -16,7 +16,7 @@ const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
     {path: 'collection', component: CollectiblesListComponent},
     {path: 'collection/:user', component: CollectionOverviewComponent},
-    {path: 'collectible', component: CollectibleDetailsComponent},
+    {path: 'collectible/:id', component: CollectibleDetailsComponent},
     {path: 'updateCategory', component: UpdateCategoryComponent},
     {path: 'pickCategory', component: PickCategoryComponent},
     {path: 'home', component: HomeComponent},
