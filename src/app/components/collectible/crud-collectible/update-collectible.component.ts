@@ -78,8 +78,13 @@ export class UpdateCollectibleComponent implements OnInit {
         let tripleValue: any = triple.value;
         if (triple.question.datatype === 'Date' && triple.value) {
             // In case of datatype Date we need to format the date string to an actual date, otherwise the datepicker breaks.
-            const [day, month, year] = tripleValue.split('-');
-            tripleValue = new Date(+year, +month - 1, +day);
+            if (tripleValue.includes('-')) {
+                const [day, month, year] = tripleValue.split('-');
+                tripleValue = new Date(+year, +month - 1, +day);
+            } else {
+                const [day, month, year] = tripleValue.split('/');
+                tripleValue = new Date(+year, +month - 1, +day);
+            }
         }
         return this.formbuilder.group({
             id: [triple.id],

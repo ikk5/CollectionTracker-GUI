@@ -10,6 +10,7 @@ import {LoginComponent} from "./components/user/login.component";
 import {RegisterComponent} from "./components/user/register.component";
 import {ProfileComponent} from "./components/user/profile.component";
 import {CollectionOverviewComponent} from "./components/collectible/collection/collection-overview.component";
+import {ImportComponent} from "./components/import/import.component";
 
 const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -22,7 +23,8 @@ const routes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'profile', component: ProfileComponent},
-    {path: 'updateCollectible', component: UpdateCollectibleComponent}
+    {path: 'updateCollectible', component: UpdateCollectibleComponent},
+    {path: 'import', component: ImportComponent}
 ];
 
 @NgModule({

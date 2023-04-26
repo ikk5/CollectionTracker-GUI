@@ -1,0 +1,46 @@
+<div class="col-md-12 import-form" *ngIf="isLoggedIn; else nope">
+
+    <div *ngIf="message">
+        <h1>{{message}}</h1>
+        <br/>
+    </div>
+
+    <h1>Import collectibles from excel.</h1>
+    <p>
+        For the uploaded excel we will create a new category using the columns from the excel.<br/><br/>
+        To ensure importing your excel works as expected follow the following steps:
+    </p>
+    <ul style="list-style-type: decimal">
+        <li>The filename will be used as name for the new category (can be changed later), make sure you don't have an existing category with the same name.
+        </li>
+        <li>Only the first sheet in the excel will be read.</li>
+        <li>Rename the column with the collectible name "Name"</li>
+        <li>Rename the column with the subcategories (platforms) "Subcategory"</li>
+        <li>Every row should have a value for the columns Name and Subcategory or the collectible <strong>will not</strong> be saved.</li>
+        <li>If you have columns containing links to images rename these to "img1", "img2", etc.</li>
+        <li>Ensure no columns have the name "id" and make sure there are no duplicate column names.</li>
+        <li>All questions will get default values (datatype: Text, Show on list, Filterable and Hidden: false)
+            so you'll probably want to customize these afterwards.
+        </li>
+        <li>You can only import .xls and .xlsx files.</li>
+    </ul>
+
+    <div class="jumbotron" style="font-size: large">
+
+        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+
+        <div class="file-upload">
+            {{filename || "No file uploaded yet."}}
+            <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+                <mat-icon>attach_file</mat-icon>
+            </button>
+        </div>
+        <div *ngIf="wrongFileType">
+            <br/>
+            <h1 style="color: red">You can only import {{allowedFileTypes.join(' and ')}} files.</h1>
+        </div>
+    </div>
+</div>
+<ng-template #nope>
+    <h1>Log in before you can import collectibles.</h1>
+</ng-template>

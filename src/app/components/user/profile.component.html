@@ -6,9 +6,13 @@
         <strong>Email:</strong>
         {{ currentUser.email }}
     </p>
-    <button class="btn btn-danger" (click)="removeAllCollectibles()">Delete all your collectibles</button>
-    <button class="btn btn-danger" (click)="removeAllCategories()">Delete all your categories</button>
 
+    <button class="btn btn-info" [routerLink]="'/import'">Import collectibles from excel</button>
+
+    <div class="row" style="margin-left: 0px">
+        <button class="btn btn-danger" (click)="removeAllCollectibles()">Delete all your collectibles</button>
+        <button class="btn btn-danger" (click)="removeAllCategories()">Delete all your categories</button>
+    </div>
 </div>
 
 <ng-template #loggedOut>

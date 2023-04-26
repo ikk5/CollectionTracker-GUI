@@ -22,6 +22,7 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DatePipe} from "@angular/common";
+import {ImportComponent} from "./components/import/import.component";
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import {DatePipe} from "@angular/common";
     RegisterComponent,
     ProfileComponent,
     HomeComponent,
-    CollectionOverviewComponent
+    CollectionOverviewComponent,
+    ImportComponent
   ],
   imports: [
     BrowserModule,
