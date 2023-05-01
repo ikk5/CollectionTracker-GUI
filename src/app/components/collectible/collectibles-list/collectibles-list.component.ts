@@ -25,6 +25,7 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
     filterValues: any = {};
     searchValue: string = '';
     showHidden: boolean = false;
+    doneLoading: boolean = false;
 
     collectibles?: CollectiblesList;
     category?: Category;
@@ -81,6 +82,7 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
                     console.log(data);
                     this.collectibles = data;
                     this.initTableData();
+                    this.doneLoading = true;
                 },
                 error: (e) => console.error(e)
             });

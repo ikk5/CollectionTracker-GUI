@@ -22,7 +22,8 @@
     </div>
 
     <div class="mat-elevation-z8 table-container">
-        <mat-table [dataSource]=" tabledata" matSort>
+        <mat-spinner style="margin: 0 auto;" *ngIf="!doneLoading"></mat-spinner>
+        <mat-table [dataSource]=" tabledata" matSort *ngIf="doneLoading">
             <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> {{ column }} </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{ row.get(column) }} </mat-cell>
