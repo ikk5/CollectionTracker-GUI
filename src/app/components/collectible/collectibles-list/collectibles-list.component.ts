@@ -151,6 +151,7 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
         console.log('clicked: ' + row.get('id'));
         const id = row.get('id');
         window.open('collectible/' + id);
+        // this.router.navigateByUrl('collectible/' + id); TODO: make this a user setting
     }
 
     applyFilter(event: Event): void {

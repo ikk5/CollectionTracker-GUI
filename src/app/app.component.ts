@@ -5,6 +5,7 @@ import {Subcategory} from "./models/subcategory.model";
 import {Router} from "@angular/router";
 import {StorageService} from "./services/storage.service";
 import {AuthService} from "./services/auth.service";
+import {Title} from "@angular/platform-browser";
 
 @Component({
     selector: 'app-root',
@@ -20,7 +21,9 @@ export class AppComponent {
     constructor(private categoryService: CategoryService,
                 private router: Router,
                 private storageService: StorageService,
-                private authService: AuthService) {
+                private authService: AuthService,
+                private titleService: Title) {
+        titleService.setTitle('Collection Tracker');
     }
 
     ngOnInit(): void {
