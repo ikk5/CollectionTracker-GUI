@@ -36,13 +36,20 @@
 
         <div *ngFor="let triple of currentCollectible.triples">
             <div *ngIf="ownerIsLoggedIn ||!triple.question.hidden">
-                <ng-container *ngIf="triple.question.datatype === 'URL' ; else other">
+                <ng-container *ngIf="triple.question.datatype === 'URL'">
                     <label><strong>{{triple.question.question}}:</strong></label>
                     <a href="{{triple.value}}" target="_blank"> {{triple.value}}</a>
                 </ng-container>
-                <ng-template #other>
+                <ng-container *ngIf="triple.question.datatype === 'Checkbox'">
+                    <label><strong>{{triple.question.question}}:</strong></label>
+                    <mat-icon style="color: green" *ngIf="triple.value=='true'; else nope">check_box</mat-icon>
+                    <ng-template #nope>
+                        <mat-icon style="color: red">cancel</mat-icon>
+                    </ng-template>
+                </ng-container>
+                <ng-container *ngIf="triple.question.datatype != 'URL' && triple.question.datatype != 'Checkbox'">
                     <label><strong>{{triple.question.question}}:</strong></label> {{ triple.value}}
-                </ng-template>
+                </ng-container>
             </div>
         </div>
     </div>

@@ -19,7 +19,7 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
     @ViewChild(MatSort) sort!: MatSort;
     @ViewChild('paginator') paginator!: MatPaginator;
 
-    displayedColumns?: string[];
+    displayedColumns?: any[];
     tabledata: MatTableDataSource<Map<string, string>> = new MatTableDataSource<Map<string, string>>();
     filterSelectObj: any[] = [];
     filterValues: any = {};
@@ -89,18 +89,18 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
     }
 
     initTableData() {
-        this.displayedColumns = ['Name'];
+        this.displayedColumns = [{name: 'Name', datatype: 'Text'}];
         let data: Map<string, string>[] = [];
         let filterColumns: string[] = ['Name'];
 
         if (this.category) {
-            this.displayedColumns.push('Subcategory');
+            this.displayedColumns.push({name: 'Subcategory', datatype: 'Text'});
             filterColumns.push('Subcategory');
         }
 
         for (let question of (this.collectibles?.questions ? this.collectibles.questions : [])) {
             if (question.listColumn && (!question.hidden || (question.hidden && this.showHidden))) {
-                this.displayedColumns.push(question.question);
+                this.displayedColumns.push({name: question.question, datatype: question.datatype});
                 if (question.filterColumn) {
                     filterColumns.push(question.question);
                 }
@@ -114,9 +114,9 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
                 let value: string = '';
                 const actualMap = new Map<string, string>(Object.entries(summary.questionAnswers));
                 if (actualMap.size > 0) {
-                    value = (actualMap.get(column) ? actualMap.get(column) : '')!;
+                    value = (actualMap.get(column.name) ? actualMap.get(column.name) : '')!;
                 }
-                map.set(column, value);
+                map.set(column.name, value);
             }
             map.set('id', summary.id); // Isn't shown but used for navigation
             map.set('Name', summary.name);
@@ -218,5 +218,9 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
             value.modelValue = undefined;
         })
         this.tabledata.filter = "";
+    }
+
+    getDisplayedColumnNames() {
+        return this.displayedColumns?.map(value => value.name);
     }
 }

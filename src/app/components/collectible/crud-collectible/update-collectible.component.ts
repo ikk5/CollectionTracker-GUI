@@ -227,7 +227,7 @@ export class UpdateCollectibleComponent implements OnInit {
     }
 
     navigateToDetails() {
-        this.router.navigateByUrl('collectible', {state: {collectibleId: this.currentCollectible.id}});
+        this.router.navigateByUrl('collectible/' + this.currentCollectible.id);
     }
 
     addNewImage() {
