@@ -42,7 +42,8 @@
                 </ng-container>
                 <ng-container *ngIf="triple.question.datatype === 'Checkbox'">
                     <label><strong>{{triple.question.question}}:</strong></label>
-                    <mat-icon style="color: green" *ngIf="triple.value=='true'; else nope">check_box</mat-icon>
+                    <mat-icon style="color: green" *ngIf="triple.value && ['true', 'TRUE', 'True', 'Y', 'y'].includes(triple.value); else nope">check_box
+                    </mat-icon>
                     <ng-template #nope>
                         <mat-icon style="color: red">cancel</mat-icon>
                     </ng-template>

@@ -1,10 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {Category} from "./models/category.model";
 import {CategoryService} from "./services/category.service";
 import {Subcategory} from "./models/subcategory.model";
 import {Router} from "@angular/router";
 import {StorageService} from "./services/storage.service";
 import {AuthService} from "./services/auth.service";
+import {MatSidenav} from "@angular/material/sidenav";
 
 @Component({
     selector: 'app-root',
@@ -16,6 +17,9 @@ export class AppComponent {
     isLoggedIn = false;
     username?: string;
     categories?: Category[];
+
+    @ViewChild('sidenav') sidenav!: MatSidenav;
+
 
     constructor(private categoryService: CategoryService,
                 private router: Router,
@@ -80,5 +84,12 @@ export class AppComponent {
             count += subcat.collectibleCount;
         }
         return count;
+    }
+
+    // Only hide the sidebar onclick on mobile
+    hideSidenavAfterClick() {
+        if (window.innerWidth <= 800) {
+            this.sidenav.toggle();
+        }
     }
 }

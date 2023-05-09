@@ -24,11 +24,11 @@
     <div class="mat-elevation-z8 table-container">
         <mat-spinner style="margin: 0 auto;" *ngIf="!doneLoading"></mat-spinner>
         <mat-table [dataSource]=" tabledata" matSort>
-            <ng-container matColumnDef="{{column.name}}" *ngFor="let column of displayedColumns">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> {{ column.name }} </mat-header-cell>
-                <mat-cell *matCellDef="let row">
+            <ng-container matColumnDef="{{column.name}}" *ngFor="let column of displayedColumns; let i = index">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="{{'priority-'+i}}"> {{ column.name }} </mat-header-cell>
+                <mat-cell *matCellDef="let row" class="{{'priority-'+i}}">
                     <div *ngIf="column.datatype=='Checkbox';else noCheckbox">
-                        <mat-icon style="color: green" *ngIf="row.get(column.name)=='true'; else nope">check_box</mat-icon>
+                        <mat-icon style="color: green" *ngIf="['true', 'TRUE', 'True', 'Y', 'y'].includes(row.get(column.name)); else nope">check_box</mat-icon>
                         <ng-template #nope>
                             <mat-icon style="color: red">cancel</mat-icon>
                         </ng-template>

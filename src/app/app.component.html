@@ -4,39 +4,39 @@
             <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
             <mat-icon *ngIf="sidenav.opened">close</mat-icon>
         </button>
-        <a class="navbar-brand" [routerLink]="['/']">CollectionTracker</a>
+        <a class="navbar-brand" [routerLink]="['/']" (click)="hideSidenavAfterClick()">CollectionTracker</a>
         <div class="navbar-nav mr-auto"></div> <!-- We need this div to push the buttons to the right. -->
         <div class="navbar-nav" *ngIf="!isLoggedIn">
-            <a class="nav-link" [routerLink]="['/register']">Sign Up</a>
-            <a class="nav-link" [routerLink]="['/login']">Login</a>
+            <a class="nav-link" [routerLink]="['/register']" (click)="hideSidenavAfterClick()">Sign Up</a>
+            <a class="nav-link" [routerLink]="['/login']" (click)="hideSidenavAfterClick()">Login</a>
         </div>
         <div class="navbar-nav" *ngIf="isLoggedIn">
-            <a class="nav-link" [routerLink]="['/profile']">{{ username }}</a>
-            <a class="nav-link" style="cursor: pointer" (click)="logout()">Log Out</a>
+            <a class="nav-link" [routerLink]="['/profile']" (click)="hideSidenavAfterClick()">{{ username }}</a>
+            <a class="nav-link" style="cursor: pointer" (click)="logout(); hideSidenavAfterClick()">Log Out</a>
         </div>
 
     </mat-toolbar>
 
     <mat-sidenav-container hasBackdrop="false">
-        <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
-            <button mat-button class="menu-button" [routerLink]="['/']">
+        <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8 sidenavDesktop">
+            <button mat-button class="menu-button" [routerLink]="['/']" (click)="hideSidenavAfterClick()">
                 <mat-icon>home</mat-icon>
                 <span>Home</span>
             </button>
 
             <div *ngIf="isLoggedIn">
                 <mat-divider/>
-                <button mat-button class="menu-button" [routerLink]="['/collection/', username]">
+                <button mat-button class="menu-button" [routerLink]="['/collection/', username]" (click)="hideSidenavAfterClick()">
                     <mat-icon>collections_bookmark</mat-icon>
                     <span>My collection</span>
                 </button>
 
-                <button mat-button class="menu-button" [routerLink]="['/pickCategory']">
+                <button mat-button class="menu-button" [routerLink]="['/pickCategory']" (click)="hideSidenavAfterClick()">
                     <mat-icon>add_to_photos</mat-icon>
                     <span>Add collectible</span>
                 </button>
 
-                <button mat-button class="menu-button" [routerLink]="['/updateCategory']">
+                <button mat-button class="menu-button" [routerLink]="['/updateCategory']" (click)="hideSidenavAfterClick()">
                     <mat-icon>folder</mat-icon>
                     <span>Add category</span>
                 </button>
@@ -46,19 +46,19 @@
                 <div *ngFor="let category of categories">
                     <div class="list row">
                         <div class="col-md-8">
-                            <button mat-button class="menu-button" (click)="chooseCategory(category)">
+                            <button mat-button class="menu-button" (click)="chooseCategory(category); hideSidenavAfterClick()">
                                 <span>{{category.name}} ({{countCategoryTotals(category)}})</span>
                             </button>
                         </div>
                         <div class="col-md-1">
-                            <button mat-icon-button class="icon-display" (click)="updateCategory(category)">
+                            <button mat-icon-button class="icon-display" (click)="updateCategory(category); hideSidenavAfterClick()">
                                 <mat-icon>edit</mat-icon>
                             </button>
                         </div>
                     </div>
                     <ul style="list-style-type: none">
                         <li *ngFor="let subcat of category.subcategories">
-                            <button mat-button class="menu-button" (click)="chooseSubcategory(subcat)">
+                            <button mat-button class="menu-button" (click)="chooseSubcategory(subcat); hideSidenavAfterClick()">
                                 <span>{{subcat.subcategory}} ({{subcat.collectibleCount}})</span>
                             </button>
                         </li>
@@ -67,6 +67,7 @@
             </div>
 
         </mat-sidenav>
+
         <mat-sidenav-content>
             <div class="content">
                 <router-outlet></router-outlet>

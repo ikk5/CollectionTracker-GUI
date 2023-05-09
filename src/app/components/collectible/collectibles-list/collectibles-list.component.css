@@ -17,3 +17,46 @@
     filter: brightness(90%);
     cursor: pointer;
 }
+
+/* Mobile */
+@media only screen and (max-width: 800px) {
+    [class*="list"] {
+        max-width: 100%;
+    }
+
+    .priority-4 {
+        display: none;
+    }
+
+    .priority-5 {
+        display: none;
+    }
+
+    .priority-6 {
+        display: none;
+    }
+
+    .priority-7 {
+        display: none;
+    }
+
+    .priority-8 {
+        display: none;
+    }
+
+    .priority-9 {
+        display: none;
+    }
+
+    .priority-10 {
+        display: none;
+    }
+
+    .priority-11 {
+        display: none;
+    }
+
+    .priority-12 {
+        display: none;
+    }
+}

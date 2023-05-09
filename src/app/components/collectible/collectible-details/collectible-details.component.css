@@ -33,3 +33,10 @@ img {
 .single-image {
     max-width: 98%;
 }
+
+/* Mobile */
+@media only screen and (max-width: 800px) {
+    [class*="details-view"] {
+        max-width: 100%;
+    }
+}
