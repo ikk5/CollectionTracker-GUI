@@ -1,4 +1,9 @@
 <div class="profile-page" *ngIf="currentUser; else loggedOut">
+    <div class="jumbotron" *ngIf="busyExporting">
+        <h1>Busy exporting, this may take a minute</h1>
+        <mat-spinner></mat-spinner>
+    </div>
+
     <h1>
         <strong>{{ currentUser.username }}</strong>
     </h1>
@@ -8,8 +13,9 @@
     </p>
 
     <button class="btn btn-info" [routerLink]="'/import'">Import collectibles from excel</button>
+    <!--    <button class="btn btn-info" (click)="export()">Export all collectibles to excel</button> TODO: improve performance before enabling export -->
 
-    <div class="row" style="margin-left: 0px">
+    <div class="row" style="margin-left: 0">
         <button class="btn btn-danger" (click)="removeAllCollectibles()">Delete all your collectibles</button>
         <button class="btn btn-danger" (click)="removeAllCategories()">Delete all your categories</button>
     </div>

@@ -25,10 +25,16 @@
         </li>
         <li>You can only import .xls and .xlsx files.</li>
         <li>There's a 2MB file limit.</li>
-        <li>Importing can take a few seconds for large files, please be patient.</li>
+        <li>Importing can take a while (took almost 30min for 4000 rows), please be patient. It takes a while because I use the cheapest AWS database and
+            upgrading is expensive :(
+        </li>
     </ul>
 
     <div class="jumbotron" style="font-size: large">
+        <div *ngIf="busyImporting">
+            <h1>Busy importing, this may take a minute</h1>
+            <mat-spinner></mat-spinner>
+        </div>
 
         <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
 

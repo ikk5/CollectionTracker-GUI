@@ -15,6 +15,7 @@ export class ImportComponent {
     wrongFileType: boolean = false;
     allowedFileTypes: string[] = ['xls', 'xlsx'];
     message?: string;
+    busyImporting: boolean = false;
 
     constructor(private storageService: StorageService,
                 private http: HttpClient,
@@ -28,6 +29,7 @@ export class ImportComponent {
         if (file) {
             const extension = file.name.split('.')[1].toLowerCase();
             if (this.allowedFileTypes.includes(extension)) {
+                this.busyImporting = true;
                 this.wrongFileType = false;
                 this.filename = file.name;
                 const formData = new FormData();
@@ -35,11 +37,13 @@ export class ImportComponent {
                 const upload: Observable<any> = this.http.post("import", formData);
                 upload.subscribe({
                     next: (res) => {
+                        this.busyImporting = false;
                         console.log(res);
                         this.appComponent.retrieveCategories();
                         this.message = res.message ? res.message : 'Collection imported successfully!';
                     },
                     error: (e) => {
+                        this.busyImporting = false;
                         this.message = e.error?.message ? e.error.message : "The request failed for some reason.";
                         console.error(e);
                     }
