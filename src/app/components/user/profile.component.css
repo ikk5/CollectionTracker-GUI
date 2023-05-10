@@ -6,3 +6,10 @@
 button {
     margin: 3px;
 }
+
+/* Mobile */
+@media only screen and (max-width: 800px) {
+    [class*="profile-page"] {
+        max-width: 100%;
+    }
+}

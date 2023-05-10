@@ -6,3 +6,10 @@
 mat-list-item {
     background-color: white;
 }
+
+/* Mobile */
+@media only screen and (max-width: 800px) {
+    [class*="submit-form"] {
+        max-width: 100%;
+    }
+}

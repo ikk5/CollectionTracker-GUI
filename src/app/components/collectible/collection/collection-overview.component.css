@@ -7,3 +7,10 @@
     filter: brightness(90%);
     cursor: pointer;
 }
+
+/* Mobile */
+@media only screen and (max-width: 800px) {
+    [class*="submit-form"] {
+        max-width: 100%;
+    }
+}
