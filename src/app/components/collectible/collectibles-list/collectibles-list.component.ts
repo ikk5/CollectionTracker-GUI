@@ -45,7 +45,7 @@ export class CollectiblesListComponent implements OnInit, AfterViewInit {
         if (this.subcategory) {
             this.showHidden = this.subcategory?.username == this.storageService.getUser().username;
         } else if (this.category?.subcategories) {
-            this.showHidden = this.category.subcategories[0].username == this.storageService.getUser().username;
+            this.showHidden = this.category?.subcategories[0]?.username == this.storageService.getUser().username;
         }
 
         this.retrieveCollectibles();

@@ -56,8 +56,10 @@ export class CollectionOverviewComponent implements OnInit {
 
     countCollectionTotals(): number {
         let count: number = 0;
-        for (let cat of this.categories) {
-            count += this.countCategoryTotals(cat);
+        if (this.categories) {
+            for (let cat of this.categories) {
+                count += this.countCategoryTotals(cat);
+            }
         }
         return count;
     }
