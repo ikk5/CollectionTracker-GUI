@@ -35,8 +35,24 @@ mat-checkbox {
 }
 
 /* Mobile */
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 800px), only screen and (max-height: 800px) {
     [class*="submit-form"] {
         max-width: 100%;
+    }
+
+    [class*="hide-mobile"] {
+        display: none;
+    }
+
+    [class*="formfield-with-button"] {
+        width: 80%;
+    }
+
+    [class*="formfield-button"] {
+        width: 20%;
+    }
+
+    [class*="imageslabel"] {
+        width: 40%;
     }
 }

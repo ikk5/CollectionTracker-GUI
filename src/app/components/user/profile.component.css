@@ -8,7 +8,7 @@ button {
 }
 
 /* Mobile */
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 800px), only screen and (max-height: 800px) {
     [class*="profile-page"] {
         max-width: 100%;
     }

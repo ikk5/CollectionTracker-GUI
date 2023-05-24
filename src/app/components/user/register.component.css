@@ -4,7 +4,7 @@
 }
 
 /* Mobile */
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 800px), only screen and (max-height: 800px) {
     [class*="signup-form"] {
         max-width: 100%;
     }

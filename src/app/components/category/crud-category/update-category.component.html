@@ -20,17 +20,17 @@
     <div cdkDropList (cdkDropListDropped)="dropSubcategory($event)" class="col-md-12">
         <div formArrayName="subcategories">
             <div class="row">
-                <h2 class="col-md-10">Subcategories</h2>
+                <h2 class="col-md-10 label-with-button">Subcategories</h2>
                 <button class="btn btn-info" style="margin: 0.5em;" (click)="addNewSubcategory()">Add subcategory</button>
             </div>
 
             <div *ngFor="let subcategory of subcategoriesFormArray().controls; let i = index" [formGroupName]="i" class="row" cdkDrag>
-                <div>
+                <div class="hide-drag-mobile">
                     <div class="dragdrop-placeholder" *cdkDragPlaceholder></div>
                     <mat-icon class="drag-handle" cdkDragHandle>drag_indicator</mat-icon>
                 </div>
 
-                <mat-form-field class="col-md-10">
+                <mat-form-field class="col-md-10 formfield-with-button">
                     <mat-label>Subcategory</mat-label>
                     <input matInput id="{{'subcategory'+i}}" formControlName="subcategory"/>
                 </mat-form-field>
@@ -46,12 +46,12 @@
     <div cdkDropList (cdkDropListDropped)="dropQuestion($event)">
         <div formArrayName="questions">
             <div class="row col-md-12">
-                <h2 class="col-md-10">Questions</h2>
+                <h2 class="col-md-10 label-with-button">Questions</h2>
                 <button class="btn btn-info" style="margin: 0.5em;" (click)="addNewQuestion()">Add question</button>
             </div>
 
-            <div class="row col-md-12">
-                <div style="visibility: hidden">
+            <div class="row col-md-12 hide-mobile">
+                <div style="visibility: hidden" class="hide-drag-mobile">
                     <mat-icon class="drag-handle">drag_indicator</mat-icon>
                 </div>
                 <h3 class="col-md-3">Question</h3>
@@ -62,9 +62,9 @@
                 <h3 class="col-md-1" matTooltip="Check if you want to hide this question from other users.">Hidden</h3>
             </div>
 
-            <div *ngFor="let question of questionsFormArray().controls; let i = index" [formGroupName]="i" class="row" cdkDrag>
+            <div *ngFor="let question of questionsFormArray().controls; let i = index" [formGroupName]="i" cdkDrag>
                 <div class="row col-md-12">
-                    <div>
+                    <div class="hide-drag-mobile">
                         <div class="dragdrop-placeholder" *cdkDragPlaceholder></div>
                         <mat-icon class="drag-handle" cdkDragHandle>drag_indicator</mat-icon>
                     </div>
@@ -82,12 +82,29 @@
                         <mat-label>Default value</mat-label>
                         <input matInput id="{{'defaultValue'+i}}" formControlName="defaultValue"/>
                     </mat-form-field>
-                    <mat-checkbox id="{{'listColumn'+i}}" formControlName="listColumn" class="col-md-1"/>
-                    <mat-checkbox id="{{'filterColumn'+i}}" formControlName="filterColumn" class="col-md-1"/>
-                    <mat-checkbox id="{{'hidden'+i}}" formControlName="hidden" class="col-md-1"/>
-                    <button mat-icon-button color="warn" style="transform: scale(1.25);" (click)="removeQuestion(i)" class="col-md-1">
+
+                    <mat-checkbox id="{{'listColumn'+i}}" formControlName="listColumn" class="col-md-1 hide-mobile"/>
+                    <mat-checkbox id="{{'filterColumn'+i}}" formControlName="filterColumn" class="col-md-1 hide-mobile"/>
+                    <mat-checkbox id="{{'hidden'+i}}" formControlName="hidden" class="col-md-1 hide-mobile"/>
+                    <button mat-icon-button color="warn" style="transform: scale(1.25);" (click)="removeQuestion(i)" class="col-md-1 hide-mobile">
                         <mat-icon>delete</mat-icon>
                     </button>
+                </div>
+
+                <div class="show-mobile">
+                    <p>
+                        <mat-checkbox style="margin-left: 7%" id="{{'listColumnMobile'+i}}" formControlName="listColumn">Show on list</mat-checkbox>
+                    </p>
+                    <p>
+                        <mat-checkbox style="margin-left: 6.5%" id="{{'filterColumnMobile'+i}}" formControlName="filterColumn">Filterable</mat-checkbox>
+                    </p>
+                    <p>
+                        <mat-checkbox style="margin-left: 6%" id="{{'hiddenMobile'+i}}" formControlName="hidden">Hidden</mat-checkbox>
+                    </p>
+                    <button mat-icon-button color="warn" style="transform: scale(1.25); margin-left: 2%" (click)="removeQuestion(i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <mat-divider/>
                 </div>
 
                 <div cdkDropList (cdkDropListDropped)="dropDropdownOption($event, i)" class="col-md-10">

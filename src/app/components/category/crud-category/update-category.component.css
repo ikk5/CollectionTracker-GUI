@@ -22,9 +22,45 @@ mat-checkbox {
     cursor: move;
 }
 
+.show-mobile {
+    display: none;
+}
+
+mat-divider {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    background-color: black;
+}
+
 /* Mobile */
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 800px), only screen and (max-height: 800px) {
     [class*="submit-form"] {
         max-width: 100%;
+    }
+
+    [class*="hide-drag-mobile"] {
+        display: none;
+    }
+
+    [class*="label-with-button"] {
+        max-width: 50%;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    [class*="hide-mobile"] {
+        display: none;
+    }
+
+    [class*="formfield-with-button"] {
+        width: 80%;
+    }
+
+    [class*="formfield-button"] {
+        width: 20%;
+    }
+
+    [class*="show-mobile"] {
+        display: block;
     }
 }

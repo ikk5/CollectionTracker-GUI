@@ -88,7 +88,7 @@ export class AppComponent {
 
     // Only hide the sidebar onclick on mobile
     hideSidenavAfterClick() {
-        if (window.innerWidth <= 800) {
+        if (window.innerWidth <= 800 || window.innerHeight <= 800) {
             this.sidenav.toggle(false);
         }
     }
